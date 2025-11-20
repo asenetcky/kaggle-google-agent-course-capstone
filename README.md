@@ -25,7 +25,7 @@ This capstone project is an opportunity for you to apply what you've learned dur
 ## Features to Include in Agent Submission
 
 - [ ] Multi-Agent system, including any combination of:
-    - Agent powered by LLm
+    - Agent powered by LLM
     - Parallel Agents
     - Sequential Agents
     - Loop Agents
