@@ -24,29 +24,29 @@ This capstone project is an opportunity for you to apply what you've learned dur
 
 ## Features to Include in Agent Submission
 
-- [] Multi-Agent system, including any combination of:
+- [ ] Multi-Agent system, including any combination of:
     - Agent powered by LLm
     - Parallel Agents
     - Sequential Agents
     - Loop Agents
 
-- [] Tools including:
+- [ ] Tools including:
     - MCP
     - custom tools
     - built-in tools, such as Google Search or Code Execution
     - OpenAPI tools
     - Long-running operations (pause/resume agents)
 
-- [] Sessions and Memory:
+- [ ] Sessions and Memory:
     - Sessions & state management (e.g. InMemorySessionService)
     - Long term memory (e.g. Memory Bank)
 
-- [] Context Engineering (e.g. context compaction)
+- [ ] Context Engineering (e.g. context compaction)
 
-- [] Observability: Logging, Tracing, Metrics
+- [ ] Observability: Logging, Tracing, Metrics
 
-- [] Agent Evaluation
+- [ ] Agent Evaluation
 
-- [] A2A protocol
+- [ ] A2A protocol
 
-- [] Agent Deployment
+- [ ] Agent Deployment
