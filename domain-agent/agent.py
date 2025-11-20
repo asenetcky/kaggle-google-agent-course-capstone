@@ -21,6 +21,6 @@ domain_pull_agent: LlmAgent = LlmAgent(
     name= "domain_pull_agent",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     description="",
-    instruction=""
+    instruction="",
     tools=[pull_domain_metadata]
 )
