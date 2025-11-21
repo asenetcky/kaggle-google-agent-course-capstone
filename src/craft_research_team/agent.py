@@ -53,6 +53,6 @@ silly_craft_researcher = LlmAgent(
 )
 
 parallel_craft_team = ParallelAgent(
-    name="LookupTeam",
+    name="CraftResearchTeam",
     sub_agents=[silly_craft_researcher, science_craft_researcher, art_craft_researcher],
 )
