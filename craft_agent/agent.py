@@ -4,11 +4,17 @@ safety_officer=""
 aggregator = ""
 material_researcher = ""
 craft_researcher = ""
+
 polisher=""
+
+
+polish_team=""
+
+
 
 parallel_craft_lookup_team = ParallelAgent(
     name="LookupTeam",
-    sub_agents=[""],
+    sub_agents=["craft_researcher", "tbd_agent"],
 )
 
 root_agent = SequentialAgent(
