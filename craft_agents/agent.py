@@ -11,56 +11,6 @@ safety_officer = ""
 aggregator = ""
 material_researcher = ""
 
-art_craft_researcher = LlmAgent(
-    name="ArtCraftResearcher",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction="""
-    Research popular and safe art crafts and projects
-    for toddlers that are easy to do at home with
-    common household materials. 
-
-    Return detailed step-by-step instructions
-    of the activity for parents and caregivers
-    and a bulleted material list.
-    """,
-    tools=[google_search],
-    output_key="art_research",
-)
-
-science_craft_researcher = LlmAgent(
-    name="ScienceCraftResearcher",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction="""
-    Research popular and safe science-related crafts
-    or projects for toddlers that are easy to do at home with
-    common household materials.
-
-    Return detailed step-by-step instructions
-    of the activity for parents and caregivers
-    and a bulleted material list.
-    """,
-    tools=[google_search],
-    output_key="science_research",
-)
-
-
-silly_craft_researcher = LlmAgent(
-    name="SillyCraftResearcher",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction="""
-    Research popular and safe silly crafts or projects
-    for toddlers that are easy to do at home with
-    common household materials.
-
-    Return detailed step-by-step instructions
-    of the activity for parents and caregivers
-    and a bulleted material list.
-    """,
-    tools=[google_search],
-    output_key="silly_research",
-)
-
-
 # do a human in the loop to select which craft they want
 
 polisher = ""
@@ -70,10 +20,6 @@ aggregator = ""
 polish_team = LlmAgent()
 
 
-parallel_craft_team = ParallelAgent(
-    name="LookupTeam",
-    sub_agents=[silly_craft_researcher, science_craft_researcher, art_craft_researcher],
-)
 
 test_root_agent = LlmAgent(
     name="CraftSystemCoordinator",
