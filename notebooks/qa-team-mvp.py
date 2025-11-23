@@ -53,9 +53,8 @@ def _(mo):
     Mulling these ideas over
 
     - Safety agent
-    - clarity
-    - spelling/grammar
-    -
+    - Clarity agent
+    - Spelling/grammar agent
     """)
     return
 
@@ -149,10 +148,93 @@ def _(Gemini, LlmAgent, google_search, retry_config):
 
 
 @app.cell
-def _(SequentialAgent, parallel_craft_team, safety_assurance):
+def _(Gemini, LlmAgent, retry_config):
+    clarity_editor = LlmAgent(
+        name="ClarityEditor",
+        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        instruction="""You are an expert editor.
+
+        Review the following project description for clarity.
+        Ensure the instructions are easy to understand for a parent or caregiver.
+        Rewrite the project description to improve clarity if necessary.
+
+        **Project Description:** {silly_research}
+        """,
+        output_key="clarity_edited_project",
+    )
+    return (clarity_editor,)
+
+
+@app.cell
+def _(Gemini, LlmAgent, retry_config):
+    grammar_spelling_editor = LlmAgent(
+        name="GrammarSpellingEditor",
+        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        instruction="""You are an expert proofreader.
+
+        Review the following project description for spelling and grammar errors.
+        Correct any spelling or grammar mistakes.
+
+        **Project Description:** {clarity_edited_project}
+        """,
+        output_key="final_draft",
+    )
+    return (grammar_spelling_editor,)
+
+
+@app.cell
+def _(SequentialAgent, clarity_editor, grammar_spelling_editor):
+    editorial_team = SequentialAgent(
+        name="EditorialTeam",
+        sub_agents=[clarity_editor, grammar_spelling_editor],
+    )
+    return (editorial_team,)
+
+
+@app.cell
+def _(Gemini, LlmAgent, retry_config):
+    project_approver = LlmAgent(
+        name="ProjectApprover",
+        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        instruction="""You are an expert at assessing toddler safety.
+
+        You will assess the safety of the following proposed
+        toddler projects:
+
+        **Safety Report:** {safety_report}
+
+        You will provide your findings in a concise summary (100 words max)
+        and respond with "APPROVE" or "REJECT".
+        """,
+        output_key="verdict",
+    )
+    return (project_approver,)
+
+
+@app.cell
+def _(AgentTool, Gemini, LlmAgent, editorial_team, retry_config):
+    router = LlmAgent(
+        name="Router",
+        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        instruction="""Given the verdict, decide the next step.
+        If the verdict is 'APPROVE', call the 'editorial_team' with the project description.
+        If the verdict is 'REJECT', just output the safety report.
+
+        **Verdict:** {verdict}
+        **Project Description:** {silly_research}
+        **Safety Report:** {safety_report}
+        """,
+        tools=[AgentTool(editorial_team)],
+        output_key="final_output"
+    )
+    return (router,)
+
+
+@app.cell
+def _(SequentialAgent, parallel_craft_team, project_approver, router, safety_assurance):
     root_agent=SequentialAgent(
         name="ProjectRecommendation",
-        sub_agents=[parallel_craft_team, safety_assurance]
+        sub_agents=[parallel_craft_team, safety_assurance, project_approver, router]
     )
     return (root_agent,)
 
