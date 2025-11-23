@@ -1,0 +1,243 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.18.0"
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "6a73b2cd9dee919fe0fa304970397acc",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"the-goal\">The Goal</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "4a327b1f7020b5c417835a70a5dd287b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">I want a concierge type of agent team/service that will help me come up with novel, fun\nsafe and educational crafts and projects I can do with my toddler.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "a71dc213c3bc2dad4cdbc2be845ea2a4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"testing-out-some-agent-mvps\">Testing out some Agent MVPS</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "80b39f4c390b5de6155d39b869ae36e4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"setup\">Setup</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "fee2b56eeb2ad1cabfdac03140e85dc2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "3b09a2d11c36398d510ff4cd25291352",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "1855ea0996207ab7820fad4f7a499924",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"parallel-craft-research-team\">parallel craft research team</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "80de7674a087c826cdd44b9526c57097",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "ebcca3eb5b23d5f1b0e352536fffdbe8",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "1dc498ae4dc18644a3943a0ced4c15e5",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "0113df386902ae6da1ee22a852fa31bf",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "a38ab9ec343a7dfd878b8da1d23937e8",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "7f3d06439888854ec7634a2a69803945",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "\n ### Created new session: debug_session_id\n\nUser > I need a silly craft\nCraftSystemCoordinator > Here is a fun and silly craft idea for your toddler: **Edible Yogurt \"Paint\"!**\n\nThis craft is fantastic because it's completely safe for even the youngest toddlers, as the materials are edible. You'll only need plain Greek yogurt and optionally, some food coloring.\n\n**Here's how to do it:**\n\n1.  **Prepare the \\\"Paint\\\":** If you want colors, divide the yogurt into small bowls and add a few drops of different food coloring to each. Stir well. If not, plain white yogurt is also fun!\n2.  **Set Up:** Place your toddler in their high chair or on a protected floor area.\n3.  **Start Painting:** Spoon a small amount of yogurt onto the tray or surface.\n4.  **Explore:** Let your toddler use their fingers, a spoon, or a safe spatula to spread, swirl, and \\\"paint\\\" with the yogurt. Encourage them to feel the textures and play with the colors.\n5.  **Clean Up:** Once they're done, simply wipe the tray clean or give them a bath!\n\nRemember to always supervise your toddler during any craft activity. Have fun!\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "iLit",
+      "code_hash": "266b9af7358bc6e7093ed6e59d94e4ee",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "\n ### Created new session: debug_session_id\n\nUser > I need a science craft\nCraftSystemCoordinator > Here is a science craft that is safe and engaging for toddlers:\n\n**Fizzy Lemon Volcano**\n\nThis classic experiment is a fantastic way to introduce toddlers to chemical reactions!\n\n**You'll need:**\n*   Baking soda\n*   Lemon juice (or lemonade)\n*   A small bottle or jar\n*   Food coloring (optional)\n*   A tray or container to catch the overflow\n\n**How to do it:**\n1.  Set up your bottle or jar on a tray to catch any mess.\n2.  Spoon 1-2 tablespoons of baking soda into the bottle.\n3.  Add a few drops of food coloring if you like.\n4.  Pour lemon juice into the bottle and watch the fizzy eruption!\n\n**Why it's great for toddlers:**\n*   It's visually exciting with lots of bubbles!\n*   Toddlers can easily understand the cause and effect of adding the juice.\n*   It's a fun sensory experience with colors and fizz.\n\n**Safety first:** Always supervise your toddler during this experiment and make sure they don't taste the ingredients.\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "MdfX",
+      "code_hash": "5f1f48543f83bbc8c81127afdda2ad52",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "\n ### Created new session: debug_session_id\n\nUser > I need an art craft\nCraftSystemCoordinator > Here is an art craft that toddlers can enjoy:\n\n**Painting with Household Objects**\n\nThis activity encourages toddlers to explore different textures and patterns by painting with everyday items.\n\n**Materials:**\n*   Washable paint\n*   Paper or cardboard\n*   Various household objects for stamping or rolling (e.g., blocks, cotton reels, bottle caps, sponges, bubble wrap, leaves)\n*   A tray or shallow dish for the paint\n*   An apron or old clothes for the toddler\n*   Newspaper or a plastic sheet to protect the surface\n\n**Instructions:**\n1.  **Set up:** Cover your surface with newspaper or plastic. Have your toddler wear an apron or old clothes.\n2.  **Prepare paint:** Pour small amounts of different colored washable paints into shallow dishes.\n3.  **Introduce tools:** Show your toddler how to dip household objects into the paint and press or roll them onto the paper.\n4.  **Create:** Let your toddler experiment with different objects and colors to create unique patterns and designs.\n5.  **Dry:** Move their artwork to a safe place to dry.\n\nRemember to always supervise toddlers during art activities. Have fun creating together!\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "fxkq",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
