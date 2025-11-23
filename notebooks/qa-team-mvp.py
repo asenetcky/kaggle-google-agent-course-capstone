@@ -1,6 +1,7 @@
 # /// script
 # requires-python = ">=3.13"
 # dependencies = [
+#     "google-adk==1.19.0",
 #     "protobuf==6.33.1",
 # ]
 # ///
@@ -26,7 +27,6 @@ def _():
             initial_delay=1,
             http_status_codes=[429, 500, 503, 504],  # Retry on these HTTP errors
         )
-
     return (
         Gemini,
         InMemoryRunner,
@@ -122,7 +122,6 @@ def _(Gemini, LlmAgent, ParallelAgent, google_search, retry_config):
         name="CraftResearchTeam",
         sub_agents=[silly_craft_researcher, science_craft_researcher],
     )
-
     return (parallel_craft_team,)
 
 
