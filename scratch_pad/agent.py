@@ -20,7 +20,6 @@ aggregator = ""
 polish_team = LlmAgent()
 
 
-
 test_root_agent = LlmAgent(
     name="CraftSystemCoordinator",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
@@ -47,12 +46,12 @@ test_root_agent = LlmAgent(
     ],
 )
 
+
 async def test():
     runner = InMemoryRunner(agent=test_root_agent)
-    response = await runner.run_debug(
-    "I need a science craft"
-    )
+    response = await runner.run_debug("I need a science craft")
     return response
+
 
 await test()
 
@@ -63,4 +62,3 @@ root_agent = SequentialAgent(
         polish_team,
     ],
 )
-

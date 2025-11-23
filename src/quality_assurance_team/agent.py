@@ -1,12 +1,11 @@
 from google.adk.agents import LlmAgent, SequentialAgent
 from google.adk.models.google_llm import Gemini
-from google.adk.tools import google_search, AgentTool
+from google.adk.tools import AgentTool, google_search
 
 from quality_assurance_team.config import retry_config
 
-
-#TODO connect all the proper output_keys etc...
-#TODO ensure this would actually flow together - it's not connected atm
+# TODO connect all the proper output_keys etc...
+# TODO ensure this would actually flow together - it's not connected atm
 
 safety_assurance = LlmAgent(
     name="SafetyAssuranceAgent",
@@ -91,5 +90,5 @@ router = LlmAgent(
     **Safety Report:** {safety_report}
     """,
     tools=[AgentTool(editorial_team)],
-    output_key="final_output"
+    output_key="final_output",
 )
