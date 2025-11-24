@@ -19,14 +19,14 @@ def _():
     from google.adk.agents import LlmAgent, ParallelAgent, SequentialAgent
     from google.adk.models.google_llm import Gemini
     from google.adk.runners import InMemoryRunner
-    from google.adk.tools import AgentTool, FunctionTool, google_search
+    from google.adk.tools import google_search
 
     retry_config = types.HttpRetryOptions(
-            attempts=4,  # Maximum retry attempts
-            exp_base=7,  # Delay multiplier
-            initial_delay=1,
-            http_status_codes=[429, 500, 503, 504],  # Retry on these HTTP errors
-        )
+        attempts=4,  # Maximum retry attempts
+        exp_base=7,  # Delay multiplier
+        initial_delay=1,
+        http_status_codes=[429, 500, 503, 504],  # Retry on these HTTP errors
+    )
     return (
         Gemini,
         InMemoryRunner,
@@ -62,9 +62,9 @@ def _(mo):
 @app.cell
 def _(Gemini, LlmAgent, ParallelAgent, google_search, retry_config):
     silly_craft_researcher = LlmAgent(
-            name="SillyCraftResearcher",
-            model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-            instruction="""
+        name="SillyCraftResearcher",
+        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+        instruction="""
             Research popular and safe silly crafts or projects
             for toddlers that are easy to do at home with
             common household materials.
@@ -73,9 +73,9 @@ def _(Gemini, LlmAgent, ParallelAgent, google_search, retry_config):
             of the activity for parents and caregivers
             and a bulleted material list.
             """,
-            tools=[google_search],
-            output_key="silly_research",
-        )
+        tools=[google_search],
+        output_key="silly_research",
+    )
 
     science_craft_researcher = LlmAgent(
         name="ScienceCraftResearcher",
@@ -115,7 +115,7 @@ def _(Gemini, LlmAgent, ParallelAgent, google_search, retry_config):
     #         tools=[
     #             AgentTool(silly_craft_researcher),
     #         ],
-    #)
+    # )
 
     parallel_craft_team = ParallelAgent(
         name="CraftResearchTeam",
@@ -225,16 +225,16 @@ def _(AgentTool, Gemini, LlmAgent, editorial_team, retry_config):
         **Safety Report:** {safety_report}
         """,
         tools=[AgentTool(editorial_team)],
-        output_key="final_output"
+        output_key="final_output",
     )
     return (router,)
 
 
 @app.cell
 def _(SequentialAgent, parallel_craft_team, project_approver, router, safety_assurance):
-    root_agent=SequentialAgent(
+    root_agent = SequentialAgent(
         name="ProjectRecommendation",
-        sub_agents=[parallel_craft_team, safety_assurance, project_approver, router]
+        sub_agents=[parallel_craft_team, safety_assurance, project_approver, router],
     )
     return (root_agent,)
 
@@ -242,27 +242,21 @@ def _(SequentialAgent, parallel_craft_team, project_approver, router, safety_ass
 @app.cell
 async def _(InMemoryRunner, root_agent):
     _runner = InMemoryRunner(agent=root_agent)
-    _response = await _runner.run_debug(
-        "Please recommend a silly project"
-    )
+    _response = await _runner.run_debug("Please recommend a silly project")
     return
 
 
 @app.cell
 async def _(InMemoryRunner, root_agent):
     _runner = InMemoryRunner(agent=root_agent)
-    _response = await _runner.run_debug(
-        "Please recommend a dangerous project"
-    )
+    _response = await _runner.run_debug("Please recommend a dangerous project")
     return
 
 
 @app.cell
 async def _(InMemoryRunner, root_agent):
     _runner = InMemoryRunner(agent=root_agent)
-    _response = await _runner.run_debug(
-        "Please recommend a silly project with knives"
-    )
+    _response = await _runner.run_debug("Please recommend a silly project with knives")
     return
 
 

@@ -15,6 +15,7 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
@@ -67,10 +68,11 @@ def _():
 
 @app.cell
 def _():
-    from google.adk.agents import LlmAgent, ParallelAgent, SequentialAgent
+    from google.adk.agents import LlmAgent, ParallelAgent
     from google.adk.models.google_llm import Gemini
     from google.adk.runners import InMemoryRunner
-    from google.adk.tools import AgentTool, FunctionTool, google_search
+    from google.adk.tools import AgentTool, google_search
+
     return (
         AgentTool,
         Gemini,
@@ -156,9 +158,13 @@ def _(
     science_craft_researcher,
     silly_craft_researcher,
 ):
-    parallel_craft_team = ParallelAgent(
+    _parallel_craft_team = ParallelAgent(
         name="LookupTeam",
-        sub_agents=[silly_craft_researcher, science_craft_researcher, art_craft_researcher],
+        sub_agents=[
+            silly_craft_researcher,
+            science_craft_researcher,
+            art_craft_researcher,
+        ],
     )
     return
 

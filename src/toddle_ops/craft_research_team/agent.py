@@ -2,7 +2,7 @@ from google.adk.agents import LlmAgent, ParallelAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import google_search
 
-from craft_research_team.config import retry_config
+from toddle_ops.config.basic import retry_config
 
 art_craft_researcher = LlmAgent(
     name="ArtCraftResearcher",
@@ -12,12 +12,19 @@ art_craft_researcher = LlmAgent(
     for toddlers that are easy to do at home with
     common household materials. 
 
-    Return detailed step-by-step instructions
-    of the activity for parents and caregivers
-    and a bulleted material list.
+    You WILL ONLY use the following format:
+
+    **Project Name:** Name of Project
+
+    **Description:** Concise 2-3 sentence description of project
+
+    **Materials:** A bulleted list of required materials
+
+    **Instructions:** Enumerated step-by-step instructions that
+    are easy to read and understand for parents and caregivers.
     """,
     tools=[google_search],
-    output_key="art_research",
+    output_key="project_research",
 )
 
 science_craft_researcher = LlmAgent(
@@ -28,12 +35,19 @@ science_craft_researcher = LlmAgent(
     or projects for toddlers that are easy to do at home with
     common household materials.
 
-    Return detailed step-by-step instructions
-    of the activity for parents and caregivers
-    and a bulleted material list.
+    You WILL ONLY use the following format:
+
+    **Project Name:** Name of Project
+
+    **Description:** Concise 2-3 sentence description of project
+
+    **Materials:** A bulleted list of required materials
+
+    **Instructions:** Enumerated step-by-step instructions that
+    are easy to read and understand for parents and caregivers.
     """,
     tools=[google_search],
-    output_key="science_research",
+    output_key="project_research",
 )
 
 silly_craft_researcher = LlmAgent(
@@ -44,14 +58,22 @@ silly_craft_researcher = LlmAgent(
     for toddlers that are easy to do at home with
     common household materials.
 
-    Return detailed step-by-step instructions
-    of the activity for parents and caregivers
-    and a bulleted material list.
+    You WILL ONLY use the following format:
+
+    **Project Name:** Name of Project
+
+    **Description:** Concise 2-3 sentence description of project
+
+    **Materials:** A bulleted list of required materials
+
+    **Instructions:** Enumerated step-by-step instructions that
+    are easy to read and understand for parents and caregivers.
     """,
     tools=[google_search],
-    output_key="silly_research",
+    output_key="project_research",
 )
 
+# probably less of a parallel team and more as agent tools...
 parallel_craft_team = ParallelAgent(
     name="CraftResearchTeam",
     sub_agents=[silly_craft_researcher, science_craft_researcher, art_craft_researcher],
