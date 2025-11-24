@@ -1,13 +1,23 @@
 from google.adk.agents import LlmAgent, SequentialAgent
 from google.adk.models.google_llm import Gemini
-from google.adk.tools import AgentTool, google_search
+from google.adk.tools import AgentTool, google_search, FunctionTool
 
 import toddle_ops.craft_research_team.agent as craft
 from toddle_ops.config.basic import retry_config
 
-# Loop Workflow
+# Quality Assurance Loop
 
+## helper functions
+def exit_loop():
+    """Call this function ONLY when the critique is 'APPROVED', indicating the
+    project quality assurance process is finished and no more changes are
+    needed."""
+    return {
+        "status": "approved",
+        "message": "Project approved. Exiting Quality Assurance loop.",
+    }
 
+## Agents
 initial_project_research = LlmAgent(
     name="InitialResearchAgent",
     model=Gemini(
@@ -35,11 +45,8 @@ initial_project_research = LlmAgent(
         AgentTool(agent=craft.silly_craft_researcher),
         AgentTool(agent=craft.random_craft_researcher),
     ],
+    output_key="current_project",
 )
-
-
-# TODO connect all the proper output_keys etc...
-# TODO ensure this would actually flow together - it's not connected atm
 
 safety_assurance = LlmAgent(
     name="SafetyAssuranceAgent",
@@ -47,20 +54,44 @@ safety_assurance = LlmAgent(
     instruction="""You are an expert at assessing toddler safety.
 
     You will assess the safety of the following proposed
-    toddler projects:
+    toddler project: {current_project}
 
-    **Silly Projects:** {silly_research}
-
-    **Science Projects:** {science_research}
-
-    **Art Projects:** {art_research}
-
-    You will provide your findings in a concise summary (100 words max)
-    and REJECT OR APPROVE the project for human use.
+    - You will provide your findings in a concise summary (100 words max)
+    - If the project is deemed safe and appropriate, you MUST respond with
+    the exact phrase: "APPROVED"
+    - Otherwise, provide 2-3 specific, actionable suggestions for
+    improving safety.
     """,
     tools=[google_search],
     output_key="safety_report",
 )
+
+safety_agent = LlmAgent(
+    name="SafetyAgent",
+    model=Gemini(
+        model="gemini-2.5-flash-lite",
+        retry_options=retry_config
+    ),
+    instruction="""You are a project toddler safety specialist. You have a 
+    draft toddler project and safety report.
+    
+    Draft Project: {current_story}
+    Safety Report: {critique}
+    
+    Your task is to analyze the Safety Report.
+    - IF the report is EXACTLY "APPROVED", you MUST call the `exit_loop` function and nothing else.
+    - OTHERWISE, rewrite the draft project to fully incorporate the feedback 
+    from the report.""",
+    output_key="current_project",  # It overwrites the project with the new, safer version.
+    tools=[
+        google_search,
+        FunctionTool(exit_loop)
+    ],  
+)
+
+
+
+
 
 clarity_editor = LlmAgent(
     name="ClarityEditor",
