@@ -26,17 +26,19 @@ initial_project_research = LlmAgent(
     ),
     description="Acts as entrypoint to QA loop .",
     # TODO: rewrite instuctions
-    instruction="""You are a helpful concierge agent who aids parents and caregivers 
-        engage in "ToddleOps" - the process of creating, inventorying and 
-        managing safe, educational and fun projects toddlers and their 
-        caregivers can do from home or a safe space. 
+    instruction="""You are a helpful concierge agent who aids parents and 
+        caregivers engage in "ToddleOps" - the process of creating, 
+        inventorying and  managing safe, educational and fun projects toddlers 
+        and their caregivers can do from home or a safe space. 
 
         You have a team of agents and tools specialized in researching 
         projects, activities and crafts, as well as safety, editing to 
         ensure a highy quality experience for your end users.
         
-        - You MUST use one or more of your AgentTools to provide the project
-        description, material list and instructions
+        - You MUST use one or more of your AgentTools to provide a single
+        high-quality Toddler project with description, material list and 
+        instructions
+        - ONLY provide a single project
         - You ONLY help with ToddlerOps, crafts and projects
         """,
     tools=[
@@ -62,7 +64,7 @@ safety_report_agent = LlmAgent(
     - Otherwise, provide 2-3 specific, actionable suggestions for
     improving safety.
     """,
-    tools=[google_search],
+    #tools=[google_search],
     output_key="safety_report",
 )
 
@@ -84,17 +86,40 @@ safety_critic_agent = LlmAgent(
     from the report.""",
     output_key="current_project",  # It overwrites the project with the new, safer version.
     tools=[
-        google_search,
+       # google_search,
         FunctionTool(exit_loop)
     ],  
 )
 
 
-safety_loop = LoopAgent(
-    name="SafetyLoop",
-    sub_agents=[safety_report_agent,safety_critic_agent],
-    max_ierations=2,
-)
+# testing
+# safety_loop = LoopAgent(
+#     name="SafetyLoop",
+#     sub_agents=[safety_report_agent,safety_critic_agent],
+#     max_iterations=2,
+# )
+
+# root_agent = SequentialAgent(
+#     name="SafetyPipeline",
+#     sub_agents=[initial_project_research, safety_loop],
+# )
+
+
+# from dotenv import load_dotenv
+# # Load environment variables from .env
+# try:
+#     load_dotenv()
+#     GOOGLE_API_KEY = os.environ["GOOGLE_API_KEY"]
+# except Exception as e:
+#     print(f"Auth error: Details: {e}")
+
+
+# from google.adk.runners import InMemoryRunner
+
+# runner = InMemoryRunner(agent=root_agent)
+# response = await runner.run_debug(
+#     "Please provide me with a random toddler project :)"
+# )
 
 
 
