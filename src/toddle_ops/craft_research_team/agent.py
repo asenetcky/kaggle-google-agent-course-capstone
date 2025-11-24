@@ -73,6 +73,30 @@ silly_craft_researcher = LlmAgent(
     output_key="project_research",
 )
 
+
+random_craft_researcher = LlmAgent(
+    name="SillyCraftResearcher",
+    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+    instruction="""
+    Research random crafts or projects
+    for toddlers that are easy to do at home with
+    common household materials.
+
+    You WILL ONLY use the following format:
+
+    **Project Name:** Name of Project
+
+    **Description:** Concise 2-3 sentence description of project
+
+    **Materials:** A bulleted list of required materials
+
+    **Instructions:** Enumerated step-by-step instructions that
+    are easy to read and understand for parents and caregivers.
+    """,
+    tools=[google_search],
+    output_key="project_research",
+)
+
 # probably less of a parallel team and more as agent tools...
 parallel_craft_team = ParallelAgent(
     name="CraftResearchTeam",
