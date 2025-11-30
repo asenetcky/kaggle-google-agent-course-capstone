@@ -5,9 +5,6 @@ from google.adk.apps.app import App
 
 from toddle_ops.agents.root_agent.agent import root_agent
 from toddle_ops.config.basic import events_compaction_config
-from toddle_ops.services.sessions import session_service
-from toddle_ops.services.memory import memory_service
-
 
 # Load environment variables from .env
 try:
@@ -26,6 +23,4 @@ adk_app = App(
     name=APP_NAME,
     root_agent=root_agent,
     events_compaction_config=events_compaction_config,
-    session_service=session_service,
-    memory_service=memory_service,
 )
