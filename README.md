@@ -29,7 +29,7 @@ their little ones.
 ## Usage
 
 ```bash
-adk run src/toddle_ops/app/
+adk run src/toddle_ops/local_app/
 ```
 
 ### Vertex App
