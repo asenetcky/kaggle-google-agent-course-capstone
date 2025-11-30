@@ -18,6 +18,7 @@ try:
 except Exception as e:
     print(f"Auth error: Details: {e}")
 
+
 APP_NAME = "default"  # Application
 USER_ID = "default"  # User
 SESSION = "default"  # Session
