@@ -37,8 +37,8 @@ adk run src/toddle_ops/app/
 **Deployment**
 
 ```bash
-cd ./src/toddle_ops/vertex_app
-adk deploy agent_engine --project=$GOOGLE_PROJECT_ID --region=$DEPLOYED_REGION . --agent_engine_config_file==.agent_engine_config.json
+cd ./src/toddle_ops/
+adk deploy agent_engine --project=$GOOGLE_PROJECT_ID --region=$DEPLOYED_REGION vertex_app --agent_engine_config_file=vertex_app/.agent_engine_config.json
 ```
 
 ### MCP
