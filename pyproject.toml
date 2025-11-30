@@ -10,6 +10,7 @@ requires-python = ">=3.13"
 dependencies = [
     "aiosqlite>=0.21.0",
     "asyncio>=4.0.0",
+    "gcloud>=0.18.3",
     "google-adk>=1.19.0",
     "mcp>=1.22.0",
     "pydantic>=2.12.4",
@@ -36,6 +37,7 @@ test = [
 dev = [
     "google-adk[eval]>=1.19.0",
     "marimo>=0.18.0",
+    "opentelemetry-instrumentation-google-genai>=0.4b0",
 ]
 test = [
     "pytest>=8.4.0",

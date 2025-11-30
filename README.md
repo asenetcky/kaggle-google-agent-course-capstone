@@ -32,7 +32,19 @@ their little ones.
 adk run src/toddle_ops/app/
 ```
 
+### Vertex App
+
+**Deployment**
+
+```bash
+cd ./src/toddle_ops/agents/
+adk deploy agent_engine --project=$GOOGLE_PROJECT_ID --region=$DEPLOYED_REGION vertex_agent --agent_engine_config_file=vertex_agent/.agent_engine_config.json
+```
+
 ### MCP
 
 - [sqlite mcp server](https://github.com/modelcontextprotocol/servers-archived/tree/main/src/sqlite)
 
+## Setup
+
+Install [gcloud](https://docs.cloud.google.com/sdk/docs/install-sdk#rpm)
