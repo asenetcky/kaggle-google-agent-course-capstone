@@ -39,6 +39,9 @@ root_agent = LlmAgent(
 
 
     """,
-    tools=[AgentTool(project_pipeline), AgentTool(db.root_agent)],
+    tools=[
+        AgentTool(project_pipeline), 
+        #AgentTool(db.root_agent)
+        ],
     output_key="project_request"
 )
