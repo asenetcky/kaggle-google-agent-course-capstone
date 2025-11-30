@@ -4,7 +4,7 @@ This file will contain documentation related to the Gemini project.
 
 ## Initial Setup
 
-*   **Project Name:** kaggle-google-agent-course-capstone
+*   **Project Name:** toggle-ops
 *   **Python Version:** Python 3.13 (as per `pyproject.toml` and `.python-version`)
 *   **Dependencies:**
     *   `google-adk>=1.19.0`
@@ -12,15 +12,15 @@ This file will contain documentation related to the Gemini project.
 
 ## Project Structure (Key Directories)
 
-*   `src/craft_research_team/`: Contains the research team agent logic.
-*   `src/quality_assurance_team/`: Contains the quality assurance team agent logic.
+*   `src/toddle_ops/agents/craft_research_team/`: Contains the research team agent logic.
+*   `src/toddle_ops/agents/materials_team/`: Contains the materials team agent logic.
+*   `src/toddle_ops/agents/project_database_team/`: Contains the project database team agent logic.
+*   `src/toddle_ops/agents/project_history_team/`: Contains the project history team agent logic.
+*   `src/toddle_ops/agents/quality_assurance_team/`: Contains the quality assurance team agent logic.
+*   `src/toddle_ops/agents/root_agent/`: Contains the root agent logic for overall orchestration.
 *   `notebooks/`: Contains marimo notebooks for agent development and testing.
 *   `docs/`: Quarto-generated documentation.
 
-## How to Run/Develop (Inferred)
-
-1.  **Install dependencies:** `uv pip install -e .`
-2.  **Run the QA Team notebook:** `uvx marimo edit --sandbox notebooks/qa-team-mvp.py`
 
 ## QA Team Workflow
 
@@ -32,11 +32,16 @@ The `notebooks/qa-team-mvp.py` notebook implements a multi-agent workflow for en
 4.  **Routing:** An `LlmAgent` (`Router`) conditionally routes the project to the editorial team if approved.
 5.  **Editing:** A `SequentialAgent` (`EditorialTeam`) checks the project for clarity and grammar.
 
+## How to Run Tests
+
+1.  **Install test dependencies:** `uv pip install -e .[test]`
+2.  **Run tests:** `uv run pytest`
+
 ## To-Do
 
-*   Document the purpose and usage of `src/craft_research_team/` and `src/quality_assurance_team/`.
-*   Explain how to run tests (if any are added).
 *   Add deployment instructions.
+
+**Note:** The project structure for agent directories has been updated to reflect their actual location under `src/toddle_ops/agents/`.
 
 ---
 *This document is a placeholder and will be expanded as the project develops.*

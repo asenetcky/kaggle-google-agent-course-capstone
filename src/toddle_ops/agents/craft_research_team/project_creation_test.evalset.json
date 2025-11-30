@@ -1,0 +1,44 @@
+{
+  "eval_set_id": "project_creation_test",
+  "name": "project_creation_test",
+  "eval_cases": [
+    {
+      "eval_id": "project_creation_no_details",
+      "conversation": [
+        {
+          "invocation_id": "e-01993cc7-97de-469d-ac3f-0267c0568861",
+          "user_content": {
+            "parts": [
+              {
+                "text": "project please"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "{\n  \"name\": \"No-Mess Painting and Sensory Exploration\",\n  \"description\": \"Combine the mess-free fun of finger painting with the unique sensory experience of Oobleck for a versatile toddler activity. The no-mess bag allows for paint exploration, while the Oobleck offers a different tactile sensation. Both projects are easy, quick, and engaging for young children.\",\n  \"difficulty\": \"easy\",\n  \"duration_minutes\": 45,\n  \"materials\": [\n    {\n      \"name\": \"Plastic zip-top bag (gallon or quart size)\",\n      \"quantity\": 1\n    },\n    {\n      \"name\": \"Non-toxic finger paints\",\n      \"quantity\": 1\n    },\n    {\n      \"name\": \"Tape (optional, to secure the bag to a high chair or floor)\",\n      \"quantity\": 1\n    },\n    {\n      \"name\": \"Cornstarch\",\n      \"quantity\": 2\n    },\n    {\n      \"name\": \"Water\",\n      \"quantity\": 1\n    },\n    {\n      \"name\": \"A bowl or container for mixing\",\n      \"quantity\": 1\n    },\n    {\n      \"name\": \"Food coloring (optional)\",\n      \"quantity\": 1\n    },\n    {\n      \"name\": \"Spoons, scoops, or small toys for play\",\n      \"quantity\": 1\n    }\n  ],\n  \"instructions\": [\n    \"For the No-Mess Finger Painting: Squirt a few dollops of different colored non-toxic finger paints into the plastic zip-top bag. Carefully seal the bag, ensuring all the air is squeezed out. Optionally, secure the bag to a high chair tray or a flat surface on the floor with tape. Let your toddler explore the paint by moving it around inside the bag with their fingers.\",\n    \"For the Oobleck: In a bowl or container, combine approximately two parts cornstarch to one part water. If using food coloring, add a few drops to the water before mixing with the cornstarch for a more vibrant Oobleck. Mix the ingredients together with a spoon or your hands until a strange, non-Newtonian fluid is formed. Let your toddler explore the Oobleck with their hands, spoons, or small toys.\",\n    \"Supervise your toddler closely during both activities.\",\n    \"When playtime is over for Oobleck, dispose of it by pouring it into the trash (do not pour large amounts down the drain as it can cause clogs). For the no-mess painting, simply dispose of the sealed bag.\"\n  ]\n}"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1764372848.299245
+        }
+      ],
+      "session_input": {
+        "app_name": "craft_research_team",
+        "user_id": "user",
+        "state": {
+          "art_project": "",
+          "science_project": "",
+          "silly_project": "",
+          "random_project": ""
+        }
+      },
+      "creation_timestamp": 1764373045.5284991
+    }
+  ],
+  "creation_timestamp": 1764373026.4539177
+}
