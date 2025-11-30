@@ -12,7 +12,6 @@ dependencies = [
     "asyncio>=4.0.0",
     "google-adk>=1.19.0",
     "mcp>=1.22.0",
-    "pathlib>=1.0.1",
     "pydantic>=2.12.4",
     "python-dotenv>=1.2.1",
 ]
