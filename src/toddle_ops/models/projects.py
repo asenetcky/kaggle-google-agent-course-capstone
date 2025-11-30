@@ -26,6 +26,7 @@ class Material(BaseModel):
 class Project(BaseModel):
     """A craft project for toddlers."""
 
+    # UUID is is causing issues with the db 
     project_id: uuid.UUID = Field(default_factory=uuid.uuid4)
     name: str = Field(..., description="The name of the project.")
     description: str = Field(..., description="A brief description of the project.")
