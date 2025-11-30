@@ -19,7 +19,7 @@ events_compaction_config = EventsCompactionConfig(
 # this can be more lax
 eval_config = {
     "criteria": {
-        "tool_trajectory_avg_score": 1.0,  
-        "response_match_score": 0.2, 
+        "tool_trajectory_avg_score": 1.0,
+        "response_match_score": 0.2,
     }
 }
