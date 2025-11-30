@@ -1,7 +1,7 @@
 [project]
 name = "toddle-ops"
 version = "0.2.0"
-description = "Add your description here"
+description = "Fast and Easy Project Generation for Exhausted Caregivers"
 readme = "README.md"
 authors = [
     { name = "asenetcky", email = "me@asenetcky.dev" }

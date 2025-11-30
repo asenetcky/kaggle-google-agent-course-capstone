@@ -81,7 +81,7 @@ editorial_agent = LlmAgent(
 
     **Project:** {standard_project}
     """,
-    output_key="final_project",
+    output_key="standard_project",
 )
 
 root_agent = SequentialAgent(
