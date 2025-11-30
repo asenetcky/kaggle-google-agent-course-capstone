@@ -1,6 +1,7 @@
 from enum import Enum
 
-#TODO implement this enum - like with safety etc...
+
+# TODO implement this enum - like with safety etc...
 class Status(str, Enum):
     """The difficulty of the project."""
 

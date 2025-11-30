@@ -48,7 +48,7 @@ root_agent = LlmAgent(
         # FunctionTool(tools.list_projects),
         # FunctionTool(tools.init_db),
         FunctionTool(tools.ask_user_permission),
-        mcp_sqlite_server
+        mcp_sqlite_server,
     ],
     output_key="database_queue",
 )

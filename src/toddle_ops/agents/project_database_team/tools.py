@@ -6,7 +6,6 @@ from typing import List, Optional
 from enum import Enum
 
 from toddle_ops.models.projects import Project, Difficulty
-from google.adk.tools.tool_context import ToolContext
 
 DATABASE_FILE = Path("toddle_ops_projects.db")
 
@@ -192,6 +191,7 @@ def list_projects() -> List[Project]:
         for row in rows
     ]
 
+
 # add this in eventually
 # tool_context: ToolContext
 def ask_user_permission(summary: str) -> str:
@@ -209,5 +209,3 @@ def ask_user_permission(summary: str) -> str:
     if choice in ("y", "yes", ""):
         return "yes"
     return "no"
-
-

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import uuid
 
-from toddle_ops.models.projects import Difficulty, Material, Project
+from toddle_ops.models.projects import Difficulty, Project
 
 
 def test_create_project():
