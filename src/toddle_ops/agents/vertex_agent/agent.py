@@ -1,9 +1,9 @@
 import os
+
+import vertexai
 from dotenv import load_dotenv
 
-
 import toddle_ops.agents.root_agent.agent as root
-import vertexai
 
 # Load environment variables from .env
 

@@ -1,5 +1,5 @@
-from google.genai import types
 from google.adk.apps.app import EventsCompactionConfig
+from google.genai import types
 
 retry_config = types.HttpRetryOptions(
     attempts=4,  # Maximum retry attempts

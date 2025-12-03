@@ -1,6 +1,6 @@
-from google.adk.sessions import DatabaseSessionService
-
 from pathlib import Path
+
+from google.adk.sessions import DatabaseSessionService
 
 database_path = Path.cwd() / "data"
 

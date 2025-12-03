@@ -1,11 +1,11 @@
-import sqlite3
 import json
+import sqlite3
 import uuid
+from enum import Enum
 from pathlib import Path
 from typing import List, Optional
-from enum import Enum
 
-from toddle_ops.models.projects import Project, Difficulty
+from toddle_ops.models.projects import Difficulty, Project
 
 DATABASE_FILE = Path("toddle_ops_projects.db")
 

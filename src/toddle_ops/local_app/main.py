@@ -1,11 +1,12 @@
-from dotenv import load_dotenv
 import asyncio
 import logging
+
+from dotenv import load_dotenv
 from google.adk.runners import Runner
 
-from toddle_ops.services.sessions import session_service
-from toddle_ops.services.memory import memory_service
 from toddle_ops.local_app.agent import adk_app
+from toddle_ops.services.memory import memory_service
+from toddle_ops.services.sessions import session_service
 
 load_dotenv()
 

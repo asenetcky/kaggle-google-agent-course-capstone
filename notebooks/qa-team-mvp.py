@@ -15,11 +15,11 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
-    from google.genai import types
     from google.adk.agents import LlmAgent, ParallelAgent, SequentialAgent
     from google.adk.models.google_llm import Gemini
     from google.adk.runners import InMemoryRunner
     from google.adk.tools import google_search
+    from google.genai import types
 
     retry_config = types.HttpRetryOptions(
         attempts=4,  # Maximum retry attempts
