@@ -1,9 +1,9 @@
 
-# Toddle Ops Kaggle x Google Capstone Project 👶
+# Toddle Ops 👶
 
 ![gemini ai generated picture of toddlers sitting around a conference table working on a software project.](images/toddle-ops.png "Toddle Ops")
 
-This is my capstone project for the 
+This is the continuation of my capstone project for the 
 [Agents Intensive - Capstone Project](https://www.kaggle.com/competitions/agents-intensive-capstone-project).
 
 [5-Day AI Agents Intensive Course with Google Course Page](https://www.kaggle.com/learn-guide/5-day-agents)
@@ -27,31 +27,30 @@ easy to follow format so *all* you have to do is conjure up every last drop
 of willpower in your tired, aching body to actually *do* the project!
 
 
-## Setup
 
-### Dependencies
 
-- uv
-- gcloud for Vertex
 
-1. Installing `uv`
 
-Please refer to [astral's website for up-to-date installation instructions.](https://docs.astral.sh/uv/getting-started/installation/)
+## Installation
+
+### Standard Installation
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-2. Clone repo and setup python
-
-This project has a `uv.lock` and `pyproject.toml` so users can easily
-setup their environment with `uv`.
-
-```bash
+# Clone repository from GitHub
 git clone https://github.com/asenetcky/toddle-ops
+
+# Enter Repository
 cd toddle-ops
+
+# Create .venv and install dependencies with uv
 uv sync
 ```
+### Requirements
+
+- uv
+    - Please refer to 
+    [astral's website for up-to-date installation instructions.](https://docs.astral.sh/uv/getting-started/installation/)
+
 
 ## Usage
 
