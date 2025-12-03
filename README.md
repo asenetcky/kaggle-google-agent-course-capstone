@@ -1,13 +1,14 @@
 
 # Toddle Ops 👶
 
+## Project Overview
+
 ![gemini ai generated picture of toddlers sitting around a conference table working on a software project.](images/toddle-ops.png "Toddle Ops")
 
 This is the continuation of my capstone project for the 
 [Agents Intensive - Capstone Project](https://www.kaggle.com/competitions/agents-intensive-capstone-project).
 
 [5-Day AI Agents Intensive Course with Google Course Page](https://www.kaggle.com/learn-guide/5-day-agents)
-
 
 Toddle Ops is an Agentic Concierge service to help exhausted parents and
 caregivers create, manage and ✨deploy✨ toddler projects they can do with
@@ -25,11 +26,6 @@ Lower the barrier of entry to safe, fun toddler activities to the absolute
 floor with the ToddleOps Agent. It will provide projects, in a standard,
 easy to follow format so *all* you have to do is conjure up every last drop
 of willpower in your tired, aching body to actually *do* the project!
-
-
-
-
-
 
 ## Installation
 
