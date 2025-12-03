@@ -10,5 +10,5 @@ jobs:
       - uses: astral-sh/ruff-action@v3
         with:
           version: "0.14.7"
-          checksum: "ecab623fb2fe3846de4cafa0dfef0385a7245941"
+          checksum: "e9613aee4fceabb4335296de5c7e7a3d58eddc21ef92e5ccae66f41f0ec3815d"
           args: "format --check --diff"
