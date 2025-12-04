@@ -2,7 +2,7 @@ from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import FunctionTool
 
-from toddle_ops.config.basic import retry_config
+from toddle_ops.config import retry_config
 from toddle_ops.models.projects import SafetyReport
 
 # Quality Assurance Loop

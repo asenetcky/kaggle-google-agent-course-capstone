@@ -2,8 +2,7 @@ from google.adk.agents import LlmAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import FunctionTool
 
-from toddle_ops.config.basic import retry_config
-import toddle_ops.agents.project_database_team.tools as tools
+from toddle_ops.config import retry_config
 from toddle_ops.mcp.sqlite import mcp_sqlite_server
 
 root_agent = LlmAgent(
@@ -41,13 +40,7 @@ root_agent = LlmAgent(
             - Output "Action Cancelled by user."
         """,
     tools=[
-        # FunctionTool(tools.create_project),
-        # FunctionTool(tools.get_project),
-        # FunctionTool(tools.update_project),
-        # FunctionTool(tools.delete_project),
-        # FunctionTool(tools.list_projects),
-        # FunctionTool(tools.init_db),
-        FunctionTool(tools.ask_user_permission),
+        # FunctionTool(tools.ask_user_permission),
         mcp_sqlite_server,
     ],
     output_key="database_queue",

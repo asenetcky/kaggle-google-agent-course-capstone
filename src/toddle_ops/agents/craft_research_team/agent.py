@@ -2,7 +2,7 @@ from google.adk.agents import LlmAgent, ParallelAgent, SequentialAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import google_search
 
-from toddle_ops.config.basic import retry_config
+from toddle_ops.config import retry_config
 from toddle_ops.models.projects import Project
 
 art_craft_researcher = LlmAgent(
@@ -38,55 +38,14 @@ science_craft_researcher = LlmAgent(
     output_key="science_project",
 )
 
-silly_craft_researcher = LlmAgent(
-    name="SillyCraftResearcher",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction="""
-    Research popular and safe silly crafts or projects
-    for toddlers that are easy to do at home with
-    common household materials.
-
-    You WILL ONLY provide one project. Be sure to focus on
-    the project name, duration, difficulty, required materials 
-    and instructions.
-    """,
-    tools=[google_search],
-    output_key="silly_project",
-)
-
-
-random_craft_researcher = LlmAgent(
-    name="RandomCraftResearcher",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction="""
-    Research random crafts or projects
-    for toddlers that are easy to do at home with
-    common household materials.
-
-    You WILL ONLY provide one project. Be sure to focus on
-    the project name, duration, difficulty, required materials 
-    and instructions.
-    """,
-    tools=[google_search],
-    output_key="random_project",
-)
-
 # probably less of a parallel team and more as agent tools...
 parallel_craft_team = ParallelAgent(
     name="CraftResearchTeam",
     sub_agents=[
-        # silly_craft_researcher,
         science_craft_researcher,
         art_craft_researcher,
-        # random_craft_researcher,
     ],
 )
-
-# removing some parallel agents for billing purposes :D
-# also a bit redundant
-# removing:
-#    - {silly_project}
-#    - {random_project}
 
 project_synthesizer = LlmAgent(
     name="ProjectSynthesizer",
