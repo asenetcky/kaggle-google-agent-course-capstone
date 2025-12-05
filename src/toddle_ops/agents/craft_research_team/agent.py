@@ -49,7 +49,7 @@ parallel_craft_team = ParallelAgent(
 
 project_synthesizer = LlmAgent(
     name="ProjectSynthesizer",
-    model=LiteLlm(model="ollama_chat/qwen3:30b", retry_options=retry_config),
+    model=LiteLlm(model="ollama_chat/gemma3:12b"),
     instruction="""You are a project synthesizer. You will receive research for
     multiple toddler projects from the CraftResearchTeam. 
     

@@ -69,13 +69,18 @@ safety_refinement_loop = LoopAgent(
 ### editor loop
 editorial_agent = LlmAgent(
     name="EditorialAgent",
-    model=LiteLlm(model="ollama_chat/qwen3:30b", retry_options=retry_config),
+    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction="""You are an expert editor and proofreader.
 
-    Review the following project for clarity, age-appropriateness, spelling, and grammar.
-    - Projects are meant for children aged 1-3 years, accompanied by an adult.
-    - Ensure the instructions are easy for a parent or caregiver to understand.
-    - Correct all spelling and grammar mistakes.
+    Review the following project for clarity, age-appropriateness, spelling, and ### Requirements
+
+- uv
+    - Please refer to 
+    [astral's website for up-to-date installation instructions.](https://docs.astral.sh/uv/getting-started/installation/)
+
+- Ollama
+    - Please refer to [Ollama's website for up-to-date installation instructions.](https://ollama.com/download)
+
     - Rewrite the project to improve clarity and correctness where necessary.
 
     The final output should only correct the project content, maintaining the original format.
