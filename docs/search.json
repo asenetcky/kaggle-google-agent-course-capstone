@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "capstone-info.html",
+    "href": "capstone-info.html",
+    "title": "Capstone Descritpion",
+    "section": "",
+    "text": "This capstone project is an opportunity for you to apply what you’ve learned during the course week and submit it for evaluation.\n\nThe high level process for a capstone project consists of:\n\nSelecting a track:\n\nAgents for Good, Concierge, Enterprise or Freestyle\n\nFormulating a problem and solution pitch to which you will build your agent. This will hone the objective of your project.\nDeveloping and publishing the code for your agent publicly.\nBeing able to articulate the value of the agent by preparing a writeup.\n\n\nOriginal Project Details"
+  },
+  {
+    "objectID": "capstone-info.html#kaggle-capstone-objectives",
+    "href": "capstone-info.html#kaggle-capstone-objectives",
+    "title": "Capstone Descritpion",
+    "section": "",
+    "text": "This capstone project is an opportunity for you to apply what you’ve learned during the course week and submit it for evaluation.\n\nThe high level process for a capstone project consists of:\n\nSelecting a track:\n\nAgents for Good, Concierge, Enterprise or Freestyle\n\nFormulating a problem and solution pitch to which you will build your agent. This will hone the objective of your project.\nDeveloping and publishing the code for your agent publicly.\nBeing able to articulate the value of the agent by preparing a writeup.\n\n\nOriginal Project Details"
+  },
+  {
+    "objectID": "capstone-info.html#features-to-include-in-agent-submission",
+    "href": "capstone-info.html#features-to-include-in-agent-submission",
+    "title": "Capstone Descritpion",
+    "section": "Features to Include in Agent Submission",
+    "text": "Features to Include in Agent Submission\n\nMulti-Agent system, including any combination of:\n\nAgent powered by LLM\nParallel Agents\nSequential Agents\nLoop Agents\n\nTools including:\n\nMCP\ncustom tools\nbuilt-in tools, such as Google Search or Code Execution\nOpenAPI tools\nLong-running operations (pause/resume agents)\n\nSessions and Memory:\n\nSessions & state management (e.g. InMemorySessionService)\nLong term memory (e.g. Memory Bank)\n\nContext Engineering (e.g. context compaction)\nObservability: Logging, Tracing, Metrics\nAgent Evaluation\nA2A protocol\nAgent Deployment"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "ToddleOps",
@@ -26,89 +47,5 @@
     "title": "ToddleOps",
     "section": "Usage",
     "text": "Usage\nuv\nThis will run the agent wrapped in an app with logging, and local session and memory services.\nuv run ./src/toddle_ops/local_app/main.py\n\nExample Project Output\n\n\n\nimage of terminal output describing a project for toddlers."
-  },
-  {
-    "objectID": "ideas/todo.html",
-    "href": "ideas/todo.html",
-    "title": "ToddleOps",
-    "section": "",
-    "text": "I need to rework some of the flows\ngenerally:\n\nkeep the root_agent as an LlmAgent() that just calls the typical loop for project generation\nbuild the database agent/s as a team (the summarization should probs be separate AgentTool())\nHave the db agent called in a very specific context as the end of the typical loop\nhave the same/similar db agents available to the LlmAgent root_agent as a tool if users want to forgo project generation and pull from some old favorites\nadd favorites\nget the database to actually get setup correctly.\nadd logging/callbacks/plugins etc… logging is the priority\nre-add session/memory (can’t remember where we left off with that…)"
-  },
-  {
-    "objectID": "capstone-writeup.html",
-    "href": "capstone-writeup.html",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "Title: ToddleOps Project Generation Agent Subtitle: Project Generation for Exhausted Parents and Caregivers of Toddlers\nCard and Thumbnail Image: toddle-ops\n\n\n\nTrack: Concierge Agents\n\n\n\n\nMax 1500 words\n\nKeeping a toddler happily occupied is a fulltime job, and the odds are, you already have a fulltime job. Sprinkle in some sleep depravation, and your little one is likely to miss out on enriching activities.\n\nEnter ToddleOps Project Generation Agent\n\nLower the barrier of entry to safe, fun toddler activities to the absolute floor with the ToddleOps Agent. It will provide projects, in a standard, easy to follow format so all you have to do is conjure up every last drop of willpower in your tired, aching body to actually do the project!\n\n\n\n\n\nThe main agent is a LlmAgent called ToddleOpsRoot using gemini-2.5-flash-lite and is housed inside of an App() with event compaction, a local DatabaseSessionService and MemoryService with preload.\n\n\n\nToddleOpsRoot uses a SequentialAgent as an AgentTool called ToddleOpsSequence.\nToddleOpsSequence has two parts to the sequence.\n1. A *Craft Reseearch Team* made up of the following wrapped in its own\n`SequentialAgent`\n    - `ParallelAgent` team that researches toddler projects\n    - `LlmAgent` That picks the best project, and/or combines the projects\n    in novel ways.\n2. A *Quality Assurance Team* that that is a `SequentialAgent` composed of\nthe following:\n    - `LoopAgent` checking projects for safety, providing feedback and\n    approving projects when they are deemed sage\n    - `LlmAgent` acting as an editor checking grammar and clarity.\n\n\n\n\n\ngoogle_search - built-in google search for project research\nAgentTools\nSubAgents\nFunctionTools\n\n\n\n\nsqlite mcp server - Implementing for storing projects in a structured format.\n\n\n\n\n\n\nPrompted by User: If user provides details about what kind of project wanted, forward that context on onward, regardless, begin to engage step2.\nUse ToddleOpsSequence tool\nResearch and Project Synthesizing Step\n\nParallel research of art and science projects\nProject Synthesizer combines/picks best project\n\nQuality Assurance\n\nCheck for Safety\nEdit for grammar and clarity\nReturn project in a standard format to ToddleOpsRoot\n\nProject Returned to User: They can ask for more - or with the session and memory services - prompt the agent about past projects as well.\n\n\n\n\nRepo: asenetcky/toddle-ops"
-  },
-  {
-    "objectID": "capstone-writeup.html#basic-details",
-    "href": "capstone-writeup.html#basic-details",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "Title: ToddleOps Project Generation Agent Subtitle: Project Generation for Exhausted Parents and Caregivers of Toddlers\nCard and Thumbnail Image: toddle-ops"
-  },
-  {
-    "objectID": "capstone-writeup.html#submission-tracks",
-    "href": "capstone-writeup.html#submission-tracks",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "Track: Concierge Agents"
-  },
-  {
-    "objectID": "capstone-writeup.html#project-description",
-    "href": "capstone-writeup.html#project-description",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "Max 1500 words\n\nKeeping a toddler happily occupied is a fulltime job, and the odds are, you already have a fulltime job. Sprinkle in some sleep depravation, and your little one is likely to miss out on enriching activities.\n\nEnter ToddleOps Project Generation Agent\n\nLower the barrier of entry to safe, fun toddler activities to the absolute floor with the ToddleOps Agent. It will provide projects, in a standard, easy to follow format so all you have to do is conjure up every last drop of willpower in your tired, aching body to actually do the project!"
-  },
-  {
-    "objectID": "capstone-writeup.html#agent-architecture",
-    "href": "capstone-writeup.html#agent-architecture",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "The main agent is a LlmAgent called ToddleOpsRoot using gemini-2.5-flash-lite and is housed inside of an App() with event compaction, a local DatabaseSessionService and MemoryService with preload.\n\n\n\nToddleOpsRoot uses a SequentialAgent as an AgentTool called ToddleOpsSequence.\nToddleOpsSequence has two parts to the sequence.\n1. A *Craft Reseearch Team* made up of the following wrapped in its own\n`SequentialAgent`\n    - `ParallelAgent` team that researches toddler projects\n    - `LlmAgent` That picks the best project, and/or combines the projects\n    in novel ways.\n2. A *Quality Assurance Team* that that is a `SequentialAgent` composed of\nthe following:\n    - `LoopAgent` checking projects for safety, providing feedback and\n    approving projects when they are deemed sage\n    - `LlmAgent` acting as an editor checking grammar and clarity."
-  },
-  {
-    "objectID": "capstone-writeup.html#tools",
-    "href": "capstone-writeup.html#tools",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "google_search - built-in google search for project research\nAgentTools\nSubAgents\nFunctionTools\n\n\n\n\nsqlite mcp server - Implementing for storing projects in a structured format."
-  },
-  {
-    "objectID": "capstone-writeup.html#workflow",
-    "href": "capstone-writeup.html#workflow",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "Prompted by User: If user provides details about what kind of project wanted, forward that context on onward, regardless, begin to engage step2.\nUse ToddleOpsSequence tool\nResearch and Project Synthesizing Step\n\nParallel research of art and science projects\nProject Synthesizer combines/picks best project\n\nQuality Assurance\n\nCheck for Safety\nEdit for grammar and clarity\nReturn project in a standard format to ToddleOpsRoot\n\nProject Returned to User: They can ask for more - or with the session and memory services - prompt the agent about past projects as well."
-  },
-  {
-    "objectID": "capstone-writeup.html#attachments",
-    "href": "capstone-writeup.html#attachments",
-    "title": "Kaggle x Google 5-day AI Agents Intensive Course Capstone",
-    "section": "",
-    "text": "Repo: asenetcky/toddle-ops"
-  },
-  {
-    "objectID": "capstone-info.html",
-    "href": "capstone-info.html",
-    "title": "Capstone Descritpion",
-    "section": "",
-    "text": "This capstone project is an opportunity for you to apply what you’ve learned during the course week and submit it for evaluation.\n\nThe high level process for a capstone project consists of:\n\nSelecting a track:\n\nAgents for Good, Concierge, Enterprise or Freestyle\n\nFormulating a problem and solution pitch to which you will build your agent. This will hone the objective of your project.\nDeveloping and publishing the code for your agent publicly.\nBeing able to articulate the value of the agent by preparing a writeup.\n\n\nOriginal Project Details"
-  },
-  {
-    "objectID": "capstone-info.html#kaggle-capstone-objectives",
-    "href": "capstone-info.html#kaggle-capstone-objectives",
-    "title": "Capstone Descritpion",
-    "section": "",
-    "text": "This capstone project is an opportunity for you to apply what you’ve learned during the course week and submit it for evaluation.\n\nThe high level process for a capstone project consists of:\n\nSelecting a track:\n\nAgents for Good, Concierge, Enterprise or Freestyle\n\nFormulating a problem and solution pitch to which you will build your agent. This will hone the objective of your project.\nDeveloping and publishing the code for your agent publicly.\nBeing able to articulate the value of the agent by preparing a writeup.\n\n\nOriginal Project Details"
-  },
-  {
-    "objectID": "capstone-info.html#features-to-include-in-agent-submission",
-    "href": "capstone-info.html#features-to-include-in-agent-submission",
-    "title": "Capstone Descritpion",
-    "section": "Features to Include in Agent Submission",
-    "text": "Features to Include in Agent Submission\n\nMulti-Agent system, including any combination of:\n\nAgent powered by LLM\nParallel Agents\nSequential Agents\nLoop Agents\n\nTools including:\n\nMCP\ncustom tools\nbuilt-in tools, such as Google Search or Code Execution\nOpenAPI tools\nLong-running operations (pause/resume agents)\n\nSessions and Memory:\n\nSessions & state management (e.g. InMemorySessionService)\nLong term memory (e.g. Memory Bank)\n\nContext Engineering (e.g. context compaction)\nObservability: Logging, Tracing, Metrics\nAgent Evaluation\nA2A protocol\nAgent Deployment"
   }
 ]

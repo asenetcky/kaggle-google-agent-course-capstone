@@ -4,7 +4,7 @@ from google.adk.tools import AgentTool, preload_memory
 
 import toddle_ops.agents.craft_research_team.agent as craft
 import toddle_ops.agents.quality_assurance_team.agent as qa
-from toddle_ops.config.basic import retry_config
+from toddle_ops.config import retry_config
 from toddle_ops.services.callbacks import auto_save_to_memory
 
 project_pipeline = SequentialAgent(
