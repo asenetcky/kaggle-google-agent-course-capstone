@@ -43,6 +43,7 @@ of willpower in your tired, aching body to actually *do* the project!
 
 ```bash
 # grab ollama models
+ollama serve
 ollama pull gemma3:12b
 
 # Clone repository from GitHub
