@@ -1,8 +1,10 @@
 import uuid
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Relationship
+
+from sqlmodel import SQLModel
 
 
 class Difficulty(str, Enum):
@@ -13,35 +15,30 @@ class Difficulty(str, Enum):
     HARD = "hard"
 
 
-class Material(BaseModel):
+class Material(SQLModel, table=True):
     """A material required for a project."""
 
-    name: str = Field(..., description="The name of the material.")
-    quantity: float = Field(..., description="The quantity of the material.")
-    units: str | None = Field(None, description="The units of the material.")
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True, description="The name of the material.")
+    quantity: float = Field(description="The quantity of the material.")
+    units: str | None = Field(default=None, description="The units of the material.")
+
+    projects: List["Project"] = Relationship(back_populates="materials")
 
 
-# Keeping it simple strings for now - crunch time for  deadline
-# TODO ensue the components of Project are database friendly
-class Project(BaseModel):
+class Project(SQLModel, table=True):
     """A craft project for toddlers."""
 
-    # UUID is is causing issues with the db
-    project_id: str = Field(
-        default_factory=lambda: str(uuid.uuid4()),
-        description="A unique identifier for the project.",
-    )
-    name: str = Field(..., description="The name of the project.")
-    description: str = Field(..., description="A brief description of the project.")
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True, description="The name of the project.")
+    description: str = Field(description="A brief description of the project.")
     duration_minutes: int = Field(
-        ..., description="The estimated duration of the project in minutes."
+        description="The estimated duration of the project in minutes."
     )
-    materials: str = Field(  # List[Material] = Field(
-        ..., description="A list of materials required for the project."
-    )
-    instructions: str = Field(  # List[str] = Field(
-        ..., description="A list of instructions for the project."
-    )
+    instructions: str = Field(description="A list of instructions for the project.")
+
+    materials: list["Material"] = Relationship(back_populates="projects")
+    materials_id: Optional[int] = Field(default=None, foreign_key="material.id")
 
 
 class SafetyStatus(str, Enum):
