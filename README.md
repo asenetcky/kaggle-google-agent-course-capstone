@@ -29,9 +29,23 @@ of willpower in your tired, aching body to actually *do* the project!
 
 ## Installation
 
+### Requirements
+
+- uv
+    - Please refer to 
+    [astral's website for up-to-date installation instructions.](https://docs.astral.sh/uv/getting-started/installation/)
+
+- Ollama
+    - Please refer to [Ollama's website for up-to-date installation instructions.](https://ollama.com/download)
+
+
 ### Standard Installation
 
 ```bash
+# grab ollama models
+ollama serve
+ollama pull gemma3:12b
+
 # Clone repository from GitHub
 git clone https://github.com/asenetcky/toddle-ops
 
@@ -41,11 +55,6 @@ cd toddle-ops
 # Create .venv and install dependencies with uv
 uv sync
 ```
-### Requirements
-
-- uv
-    - Please refer to 
-    [astral's website for up-to-date installation instructions.](https://docs.astral.sh/uv/getting-started/installation/)
 
 
 ## Usage
