@@ -26,6 +26,7 @@ def exit_loop():
 ### safety loop
 safety_critic_agent = LlmAgent(
     name="SafetyCriticAgent",
+    # model=LiteLlm(model="ollama_chat/gemma3:27b"),
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction="""You are an expert at assessing toddler safety.
 
@@ -44,7 +45,8 @@ safety_critic_agent = LlmAgent(
 
 safety_refiner_agent = LlmAgent(
     name="SafetyRefinerAgent",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+    model=LiteLlm(model="ollama_chat/mistral-nemo:12b"),
+    # model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction="""You are a project toddler safety specialist. You have a 
     draft toddler project and safety report.
     
@@ -69,21 +71,15 @@ safety_refinement_loop = LoopAgent(
 ### editor loop
 editorial_agent = LlmAgent(
     name="EditorialAgent",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+    model=LiteLlm(model="ollama_chat/mistral-nemo:12b"),
     instruction="""You are an expert editor and proofreader.
 
-    Review the following project for clarity, age-appropriateness, spelling, and ### Requirements
+    Review the following project for clarity, age-appropriateness, spelling, 
+    and rewrite the project to improve clarity and correctness 
+    where necessary.
 
-- uv
-    - Please refer to 
-    [astral's website for up-to-date installation instructions.](https://docs.astral.sh/uv/getting-started/installation/)
-
-- Ollama
-    - Please refer to [Ollama's website for up-to-date installation instructions.](https://ollama.com/download)
-
-    - Rewrite the project to improve clarity and correctness where necessary.
-
-    The final output should only correct the project content, maintaining the original format.
+    The final output should only correct the project content, 
+    maintaining the original format.
 
     **Project:** {standard_project}
     """,

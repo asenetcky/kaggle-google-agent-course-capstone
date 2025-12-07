@@ -1,6 +1,7 @@
 from google.adk.agents import LlmAgent, SequentialAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import AgentTool, preload_memory
+from google.adk.models.lite_llm import LiteLlm
 
 import toddle_ops.agents.craft_research_team.agent as craft
 import toddle_ops.agents.quality_assurance_team.agent as qa
@@ -17,7 +18,8 @@ project_pipeline = SequentialAgent(
 
 root_agent = LlmAgent(
     name="ToddleOpsRoot",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+    model=LiteLlm(model="ollama_chat/mistral-nemo:12b"),
+    # model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction="""
     You are the root agent for ToddleOps.
 
@@ -27,14 +29,15 @@ root_agent = LlmAgent(
 
     - You SHOULD NOT attempt to generate projects yourself without using this 
     tool.
->
+
+    - If a user asks for a project - you MUST provide a project, do not 
+    request more details.
 
     """,
     tools=[
         AgentTool(project_pipeline),
         preload_memory,
     ],
-    output_key="project_request",
     after_agent_callback=auto_save_to_memory,  # save after each turn
 )
 
@@ -50,6 +53,11 @@ from google.adk.runners import Runner
 from toddle_ops.services.memory import memory_service
 from toddle_ops.services.sessions import session_service
 
-runrun = Runner(agent=root_agent, app_name="my app", session_service=session_service, memory_service=memory_service)
+runrun = Runner(
+    agent=root_agent,
+    app_name="upgrade_synthesizer",
+    session_service=session_service,
+    memory_service=memory_service,
+)
 
-await runrun.run_debug("I would like an art project.")
+await runrun.run_debug("I would like an art project - any project will do.")

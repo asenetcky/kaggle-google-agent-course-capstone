@@ -49,12 +49,12 @@ parallel_craft_team = ParallelAgent(
 
 project_synthesizer = LlmAgent(
     name="ProjectSynthesizer",
-    model=LiteLlm(model="ollama_chat/gemma3:12b"),
+    model=LiteLlm(model="ollama_chat/gemma3:27b"),
     instruction="""You are a project synthesizer. You will receive research for
     multiple toddler projects from the CraftResearchTeam. 
     
     Your task is to analyze the research outputs and create a single, 
-    sensible project. You can either pick the best project from the 
+    coherent, sensible project. You can either pick the best project from the 
     provided research, or combine elements from them to create a new project.
 
     Research Outputs:
