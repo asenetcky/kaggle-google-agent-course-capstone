@@ -55,7 +55,7 @@ safety_refiner_agent = LlmAgent(
     - IF the report's status is 'APPROVED', you MUST call the `exit_loop` function and nothing else.
     - OTHERWISE, rewrite the draft project to fully incorporate the feedback 
     from the report.""",
-    output_key="current_project",  # It overwrites the project with the new, safer version.
+    output_key="standard_project",  # It overwrites the project with the new, safer version.
     tools=[FunctionTool(exit_loop)],
 )
 
