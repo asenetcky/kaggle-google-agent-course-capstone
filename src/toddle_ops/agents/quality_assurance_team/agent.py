@@ -5,24 +5,12 @@ from google.adk.models.lite_llm import LiteLlm
 
 from toddle_ops.config import retry_config
 from toddle_ops.models.projects import SafetyReport
+from toddle_ops.helpers import exit_loop
+from toddle_ops.models.actions import ActionReport
 
 # Quality Assurance Loop
 
-
-## helper functions
-def exit_loop():
-    """Call this function ONLY when the critique is 'APPROVED', indicating the
-    project quality assurance process is finished and no more changes are
-
-    needed."""
-    return {
-        "status": "approved",
-        "message": "Project approved. Exiting Quality Assurance loop.",
-    }
-
-
 ## Agents
-
 ### safety loop
 safety_critic_agent = LlmAgent(
     name="SafetyCriticAgent",
@@ -38,7 +26,7 @@ safety_critic_agent = LlmAgent(
       specific, actionable suggestions for improving safety.
     - Your output must be a `SafetyReport` object.
     """,
-    output_schema=SafetyReport,
+    output_schema=ActionReport,
     output_key="safety_report",
 )
 
@@ -69,7 +57,7 @@ safety_refinement_loop = LoopAgent(
 ### editor loop
 editorial_agent = LlmAgent(
     name="EditorialAgent",
-    model=LiteLlm(model="ollama_chat/qwen3:30b", retry_options=retry_config),
+    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction="""You are an expert editor and proofreader.
 
     Review the following project for clarity, age-appropriateness, spelling, and grammar.
