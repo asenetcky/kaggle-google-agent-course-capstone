@@ -1,9 +1,8 @@
 from enum import Enum
 
 
-# TODO implement this enum - like with safety etc...
 class Status(str, Enum):
-    """The difficulty of the project."""
+    """Status for common checks and loops."""
 
     APPROVED = "approved"
     PENDING = "pending"
