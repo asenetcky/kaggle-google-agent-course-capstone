@@ -18,11 +18,14 @@ safety_critic_agent = LlmAgent(
     You will assess the safety of the following proposed
     toddler project: {standard_project}
 
-    - You will provide your findings in a concise summary.
-    - If the project is deemed safe and appropriate, your status MUST be 'APPROVED'.
-    - Otherwise, your status MUST be 'NEEDS_REVISION', and you must provide
-      specific, actionable suggestions for improving safety.
-    - Your output must be a `SafetyReport` object.
+    - You will provide your findings in a concise summary inside of 'message'
+        in the ActionReport.
+    - If the project is deemed safe and appropriate, your status MUST be 
+        'Status.APPROVED'.
+    - Otherwise, your status MUST be 'Status.REVISION_NEEDED', and you must 
+        provide specific, actionable suggestions for improving safety in 
+        the ActionReport.
+    - Your output must be a  ActionReport object.
     """,
     output_schema=ActionReport,
     output_key="safety_report",
@@ -40,10 +43,11 @@ safety_refiner_agent = LlmAgent(
     Safety Report: {safety_report}
     
     Your task is to analyze the Safety Report.
-    - IF the report's status is 'APPROVED', you MUST call the `exit_loop` function and nothing else.
+    - IF the safety_report's status is 'APPROVED', you MUST call the `exit_loop` function and nothing else.
     - OTHERWISE, rewrite the draft project to fully incorporate the feedback 
-    from the report.""",
+        from the report.""",
     output_key="standard_project",  # It overwrites the project with the new, safer version.
+    input_schema=ActionReport,
     tools=[FunctionTool(exit_loop)],
 )
 

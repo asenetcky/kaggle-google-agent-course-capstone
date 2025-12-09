@@ -34,7 +34,7 @@ root_agent = LlmAgent(
     - If they provide helpful details - pass that context on to the 
     `ToddleOpsSequence` tool.
 
-    - Output the project when the tool is finished.
+    - ALWAYS Output the project when the tool is finished.
 
 
     """,
