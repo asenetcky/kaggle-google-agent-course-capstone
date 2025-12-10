@@ -1,9 +1,9 @@
-from toddle_ops.models.projects import Material, Project
-
-from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
-from dotenv import load_dotenv
 import os
 
+from dotenv import load_dotenv
+from sqlmodel import Session, SQLModel, create_engine
+
+from toddle_ops.models.projects import Material, Project
 
 load_dotenv()
 
