@@ -20,22 +20,18 @@ app = marimo.App(width="medium")
 def _():
     import marimo as mo
     from google.adk.agents import LlmAgent, ParallelAgent
-    from google.adk.models.google_llm import Gemini
     from google.adk.models.lite_llm import LiteLlm
     from google.adk.runners import InMemoryRunner
-    from google.adk.sessions import InMemorySessionService
+
     return InMemoryRunner, LiteLlm, LlmAgent, ParallelAgent, mo
 
 
 @app.cell
 def _():
-    from enum import Enum
-    from typing import List, Optional
+    from typing import List
 
     from pydantic import BaseModel
-
-    from sqlmodel import SQLModel, Field, Relationship
-
+    from sqlmodel import Field, Relationship, SQLModel
 
     class ProjectBase(BaseModel):
         name: str = Field(index=True, description="The name of the project.")
@@ -43,11 +39,13 @@ def _():
         duration_minutes: int = Field(
             description="The estimated duration of the project in minutes."
         )
-        instructions: str = Field(description="Step by step instructions for the project.")
-
+        instructions: str = Field(
+            description="Step by step instructions for the project."
+        )
 
     class Project(ProjectBase, SQLModel, table=True):
         """A craft project for toddlers."""
+
         id: int | None = Field(default=None, primary_key=True)
         materials: list["Material"] = Relationship(back_populates="project")
 
@@ -56,10 +54,13 @@ def _():
     class MaterialBase(BaseModel):
         name: str = Field(index=True, description="The name of the material.")
         quantity: float = Field(description="The quantity of the material.")
-        units: str | None = Field(default=None, description="The units of the material.")
+        units: str | None = Field(
+            default=None, description="The units of the material."
+        )
 
     class Material(MaterialBase, SQLModel, table=True):
         """A material required for a project."""
+
         id: int | None = Field(default=None, primary_key=True)
         project_id: int | None = Field(default=None, foreign_key="project.id")
         project: Project | None = Relationship(back_populates="materials")
@@ -67,6 +68,7 @@ def _():
     class ProjectPackage(BaseModel):
         project: ProjectBase
         materials: List[MaterialBase]
+
     return (ProjectPackage,)
 
 
@@ -74,7 +76,7 @@ def _():
 def _(LiteLlm, LlmAgent, ProjectPackage):
     project_conversion_agent = LlmAgent(
         name="project_conversion_agent",
-        #model=Gemini(model="gemini-2.5-flash-lite"),
+        # model=Gemini(model="gemini-2.5-flash-lite"),
         model=LiteLlm(model="ollama_chat/deepseek-r1:32b"),
         instruction="""You are adept at converting the
         provided to you into Project and Material Classes.""",
@@ -98,12 +100,12 @@ def _():
     #     Name: Toddler Art Project
     #     description: A simple art project for toddlers using basic materials.
     #     duration (in minutes): 30
-    #     instructions: 1. Gather all materials. 2. Provide paper and crayons to the toddler. 
+    #     instructions: 1. Gather all materials. 2. Provide paper and crayons to the toddler.
     #         3. Encourage the toddler to draw freely. 4. Display the artwork proudly.
     #     materials:
-    #        2 Sheets of paper, crayons (assorted colors), glue stick, safety scissors. 
+    #        2 Sheets of paper, crayons (assorted colors), glue stick, safety scissors.
 
-    #     Convert this information into the ProjectBase and MaterialBase classes, and 
+    #     Convert this information into the ProjectBase and MaterialBase classes, and
     #     return a ProjectPackage object containing the project and its materials.
 
     #     """
@@ -228,7 +230,7 @@ async def _(InMemoryRunner, LiteLlm, LlmAgent):
         name="refined_material_agent",
         model=LiteLlm(model="ollama_chat/gemma3:12b"),
         instruction="""Return ONLY the materials, their count and/or units required for the project as list of strings (list[str]) in your response and NOTHING ELSE. """,
-        #output_schema=List[MaterialBase],
+        # output_schema=List[MaterialBase],
         output_key="refined_materials",
     )
     _runner = InMemoryRunner(agent=refined_material_agent)

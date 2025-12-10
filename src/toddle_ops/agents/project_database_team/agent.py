@@ -2,11 +2,8 @@ from google.adk.agents import LlmAgent
 from google.adk.models.google_llm import Gemini
 
 # from google.adk.tools import FunctionTool
-from google.adk.models.lite_llm import LiteLlm
 from toddle_ops.config import retry_config
 from toddle_ops.mcp.sqlite import mcp_sqlite_server
-from toddle_ops.models.projects import Project, Material
-
 
 root_agent = LlmAgent(
     name="ProjectDatabaseAgent",

@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 from toddle_ops.enums import Status
 
 

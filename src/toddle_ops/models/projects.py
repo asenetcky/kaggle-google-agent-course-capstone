@@ -1,9 +1,4 @@
-from enum import Enum
-from typing import List, Optional
-
-from pydantic import BaseModel
-
-from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import Field, Relationship, SQLModel
 
 
 class StandardProject(SQLModel, table=True):
