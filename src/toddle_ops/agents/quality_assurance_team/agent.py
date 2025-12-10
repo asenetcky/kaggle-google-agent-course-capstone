@@ -36,8 +36,7 @@ safety_critic_agent = LlmAgent(
 
 safety_refiner_agent = LlmAgent(
     name="SafetyRefinerAgent",
-    model=LiteLlm(model="ollama_chat/mistral-nemo:12b"),
-    # model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
+    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction="""You are a project toddler safety specialist. You have a 
     draft toddler project and safety report.
     
