@@ -50,3 +50,11 @@ test = [
 pythonpath = [
   "src"
 ]
+
+[tool.ruff]
+exclude = [
+    "docs",
+    "data",
+    "capstone",
+    "notebooks",
+]
