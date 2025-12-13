@@ -4,7 +4,7 @@ from toddle_ops.enums import Status
 
 
 # # TODO add description annotations etc...
-class ActionReport(BaseModel):
+class StatusReport(BaseModel):
     status: Status
     message: str | None
 
