@@ -4,7 +4,7 @@ from google.adk.tools import FunctionTool
 
 from toddle_ops.config import retry_config
 from toddle_ops.helpers import exit_loop
-from toddle_ops.models.reports import ActionReport
+from toddle_ops.models.reports import StatusReport
 from toddle_ops.models.agents import AgentInstructions
 
 # Define instructions for the Safety Critic Agent
@@ -28,7 +28,7 @@ safety_critic_agent = LlmAgent(
     description="Evaluates toddler projects for safety and provides feedback.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction=safety_critic_instructions.format_instructions(),
-    output_schema=ActionReport,
+    output_schema=StatusReport,
     output_key="safety_report",
 )
 
