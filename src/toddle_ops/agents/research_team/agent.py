@@ -8,7 +8,7 @@ from toddle_ops.models.agents import AgentInstructions
 
 
 # Define instructions for the Project Researcher Agent
-researcher_instructions = AgentInstructions(
+project_researcher_instructions = AgentInstructions(
     persona="Toddler Project Researcher",
     primary_objective=[
         "Research safe crafts and projects for toddlers that are easy to do at home with common household materials."
@@ -27,13 +27,13 @@ project_researcher = LlmAgent(
     name="ProjectResearcher",
     description="Researches safe crafts and projects for toddlers using common household materials.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction=researcher_instructions.format_instructions(),
+    instruction=project_researcher_instructions.format_instructions(),
     tools=[google_search],
     output_key="project_research",
 )
 
 # Define instructions for the Project Synthesizer Agent
-synthesizer_instructions = AgentInstructions(
+project_synthesizer_instructions = AgentInstructions(
     persona="Project Synthesizer",
     primary_objective=[
         "Analyze research output from the Project Researcher and create a single, sensible toddler project."
@@ -51,7 +51,7 @@ project_synthesizer = LlmAgent(
     name="ProjectSynthesizer",
     description="Synthesizes a single toddler project from research output.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction=synthesizer_instructions.format_instructions(),
+    instruction=project_synthesizer_instructions.format_instructions(),
     output_schema=StandardProject,
     output_key="standard_project",
 )
