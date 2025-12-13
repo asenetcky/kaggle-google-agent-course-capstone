@@ -56,8 +56,3 @@ project_synthesizer = LlmAgent(
     output_key="standard_project",
 )
 
-# Define the overall Craft Research Pipeline as a Sequential Agent
-root_agent = SequentialAgent(
-    name="CraftResearchPipeline",
-    sub_agents=[project_researcher, project_synthesizer],
-)
