@@ -25,7 +25,7 @@ root_agent_instructions = AgentInstructions(
 
 # Create the Root Agent using the defined instructions
 root_agent = LlmAgent(
-    name="ToddleOpsRoot",
+    name="ToddleOpsOrchestrator",
     description="The root agent for all of ToddleOps that orchestrates project generation.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction=root_agent_instructions.format_instructions(),
