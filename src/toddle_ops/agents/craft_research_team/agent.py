@@ -4,49 +4,59 @@ from google.adk.tools import google_search
 
 from toddle_ops.config import retry_config
 from toddle_ops.models.projects import StandardProject
+from toddle_ops.models.agents import AgentInstructions  
 
+
+# Define instructions for the Project Researcher Agent
+researcher_instructions = AgentInstructions(
+    persona="Toddler Project Researcher",
+    primary_objective=[
+        "Research safe crafts and projects for toddlers that are easy to do at home with common household materials."
+    ],
+    rules=[
+        "You WILL ONLY provide one project.",
+        "Use google search to find the most relevant and safe toddler projects.",
+        "Be sure to include at least the following: the project name, duration of project, required materials for project, step by step instructions."
+    ],
+    constraints=[],
+    incoming_keys=[],
+)
+
+# Create the Project Researcher Agent using the defined instructions
 project_researcher = LlmAgent(
     name="ProjectResearcher",
+    description="Researches safe crafts and projects for toddlers using common household materials.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction="""
-    Using google_search, research safe crafts and projects for toddlers 
-    that are easy to do at home with common household materials. 
-
-    - You WILL ONLY provide one project. 
-    - Be sure to include at least the following:
-        - the project name 
-        - duration of project
-        - required materials for project
-        - step by step instructions
-    """,
+    instruction=researcher_instructions.format_instructions(),
     tools=[google_search],
     output_key="project_research",
 )
 
+# Define instructions for the Project Synthesizer Agent
+synthesizer_instructions = AgentInstructions(
+    persona="Project Synthesizer",
+    primary_objective=[
+        "Analyze research output from the Project Researcher and create a single, sensible toddler project."
+    ],
+    rules=[
+        "You can either pick the best parts from the project from the provided research, or combine elements to create a new project.",
+        "Your output MUST be a `StandardProject` object."
+    ],
+    constraints=[],
+    incoming_keys=["project_research"],
+)
+
+# Create the Project Synthesizer Agent using the defined instructions
 project_synthesizer = LlmAgent(
     name="ProjectSynthesizer",
+    description="Synthesizes a single toddler project from research output.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction="""You are a project synthesizer. You will receive research 
-    for toddler projects from the ProjectResearcher. 
-    
-    Your task is to analyze the research output and create a single, 
-    sensible project. You can either pick the best parts from the project from 
-    the provided research, or combine elements to create a new project.
-
-    Research Outputs: {project_research}
-
-    Your output MUST be a `StandardProject` object.
-    """,
+    instruction=synthesizer_instructions.format_instructions(),
     output_schema=StandardProject,
     output_key="standard_project",
 )
 
-# TODO implement a loop possible a human in the loop for feedback etc...
-
-# Your output MUST be a single `Project` object.
-# prolly should separate the project schema out from this.
-# one should be user facing, the other for future database manipulations
-
+# Define the overall Craft Research Pipeline as a Sequential Agent
 root_agent = SequentialAgent(
     name="CraftResearchPipeline",
     sub_agents=[project_researcher, project_synthesizer],
