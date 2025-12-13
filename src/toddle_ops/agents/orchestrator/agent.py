@@ -4,12 +4,13 @@ from google.adk.models.google_llm import Gemini
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools import AgentTool, preload_memory
 
-import toddle_ops.agents.craft_research_team.agent as craft
-import toddle_ops.agents.quality_assurance_team.agent as qa
+import toddle_ops.agents.research_team.workflows as craft
+import toddle_ops.agents.quality_assurance_team.workflows as qa
 from toddle_ops.config import retry_config
 from toddle_ops.models.projects import StandardProject
 from toddle_ops.services.callbacks import auto_save_to_memory
 from toddle_ops.models.agents import AgentInstructions
+from toddle_ops.agents.orchestrator.workflows import project_generation_sequence
 
 
 # Define instructions for the Project Formatter Agent
@@ -48,15 +49,6 @@ project_formatter = LlmAgent(
     output_key="human_project",
 )
 
-# Define the overall project pipeline as a Sequential Agent
-project_pipeline = SequentialAgent(
-    name="ToddleOpsSequence",
-    sub_agents=[
-        craft.root_agent,
-        qa.root_agent,
-        project_formatter,
-    ],
-)
 
 # Define instructions for the Root Agent
 root_agent_instructions = AgentInstructions(
@@ -80,7 +72,7 @@ root_agent = LlmAgent(
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction=root_agent_instructions.format_instructions(),
     tools=[
-        AgentTool(project_pipeline),
+        AgentTool(project_generation_sequence),
         preload_memory,
     ],
     output_key="human_project",
