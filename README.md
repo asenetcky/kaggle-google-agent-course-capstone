@@ -116,6 +116,15 @@ uv run streamlit run src/toddle_ops/ui.py
 
 Then open [http://localhost:8501](http://localhost:8501) in your browser.
 
+**Features:**
+- 💬 Interactive chat interface
+- 🎨 Quick prompt buttons for common activities
+- 📊 Session info display
+- 🔄 New session button to start fresh
+- ⚠️ Safety notes and example prompts
+
+See the [Streamlit UI](#-streamlit-web-ui) section for more details.
+
 ### Option 3: Docker (Production Ready)
 
 Run the complete application in a container:
@@ -236,6 +245,96 @@ session_service = InMemorySessionService()
 
 ---
 
+## 🖥️ Streamlit Web UI
+
+Toddle Ops includes a beautiful, production-ready Streamlit web interface for easy interaction with the AI agents.
+
+### Features
+
+| Feature | Description |
+|---------|-------------|
+| 💬 **Chat Interface** | Natural conversation with the AI agent |
+| 🎨 **Quick Prompts** | One-click buttons for Creative Projects, Sensory Activities, and Active Play |
+| 📊 **Session Info** | Real-time display of session ID, user ID, and message count |
+| 🔄 **New Session** | Start a fresh conversation anytime |
+| 📝 **Example Prompts** | Helpful suggestions for getting started |
+| ⚠️ **Safety Notes** | Reminders about toddler supervision |
+
+### Running the UI
+
+```bash
+# Using Make (recommended)
+make ui
+
+# Or directly with uv
+uv run streamlit run src/toddle_ops/ui.py
+
+# Or with Docker
+docker-compose up -d
+```
+
+### Quick Prompt Buttons
+
+The sidebar includes one-click buttons for common activity types:
+
+- 🎨 **Creative Project** - "Create a creative art project for my toddler"
+- 🌈 **Sensory Activity** - "Give me a sensory activity for a 2-year-old"
+- 🏃 **Active Play** - "Suggest an active indoor activity for a toddler"
+
+### Architecture Notes
+
+The Streamlit UI uses a special async handling pattern to work with the ADK's async database operations:
+
+- **Separate Thread Execution** - Each request runs in its own thread with a dedicated event loop
+- **Fresh Session Service** - Creates new `InMemorySessionService` per request to avoid asyncpg event loop conflicts
+- **Thread-Safe Design** - All Streamlit session state values are passed as parameters to async functions
+
+```python
+# The UI creates fresh async resources in each worker thread
+def _generate_project_sync(prompt: str, user_id: str, session_id: str | None):
+    async def _run():
+        local_session_service = InMemorySessionService()
+        local_memory_service = InMemoryMemoryService()
+        runner = Runner(app=app, session_service=local_session_service, ...)
+        # ... run agent
+    
+    # Execute in separate thread with its own event loop
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(run_in_thread)
+        return future.result()
+```
+
+### Configuration
+
+The Streamlit app is configured via `.streamlit/config.toml`:
+
+```toml
+[theme]
+primaryColor = "#667eea"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f8f9fa"
+
+[server]
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+```
+
+### Environment Variables
+
+The UI requires the same environment variables as the CLI:
+
+```bash
+# Required
+GOOGLE_API_KEY=your_api_key_here
+
+# Optional (for database persistence in CLI mode)
+SUPABASE_USER=your_supabase_user
+SUPABASE_PASSWORD=your_supabase_password
+```
+
+---
+
 ## 🏗️ Architecture
 
 Toddle Ops uses [Google's Agent Development Kit (ADK)](https://google.github.io/adk-docs/) to orchestrate multiple specialized agents:
@@ -300,7 +399,10 @@ toddle-ops/
 │   ├── enums.py                       # Status enums
 │   ├── helpers.py                     # Helper functions
 │   ├── main.py                        # CLI entry point
-│   └── plugins.py                     # Custom retry plugin
+│   ├── plugins.py                     # Custom retry plugin
+│   └── ui.py                          # Streamlit web UI
+├── .streamlit/                        # Streamlit configuration
+│   └── config.toml                    # Theme and server settings
 ├── tests/                             # Test suite
 ├── notebooks/                         # Marimo notebooks for development
 ├── Makefile                           # Development commands
@@ -330,7 +432,12 @@ uvx ruff format
 make install      # Install production dependencies only
 make install-dev  # Install all dependencies including dev tools
 make ruff         # Run code formatting and linting
-make run          # Run the application
+make run          # Run the application (CLI)
+make ui           # Run Streamlit web UI
+make docker-build # Build Docker container
+make docker-run   # Run with Docker Compose
+make docker-stop  # Stop Docker containers
+make docker-logs  # View container logs
 ```
 
 ### Key Features in Current Implementation
