@@ -1,5 +1,10 @@
+import warnings
+
 from google.adk.apps.app import EventsCompactionConfig
 from google.genai import types
+
+# Silence experimental feature warnings from ADK
+warnings.filterwarnings("ignore", message=".*EXPERIMENTAL.*")
 
 retry_config = types.HttpRetryOptions(
     attempts=4,  # Maximum retry attempts
