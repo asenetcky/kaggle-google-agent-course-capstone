@@ -3,11 +3,71 @@
 
 version: 2
 updates:
-  - package-ecosystem: uv
+  # Python dependencies via uv
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: weekly
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "asenetcky"
+    labels:
+      - "dependencies"
+      - "python"
     groups:
-      python-packages:
+      google-adk:
+        patterns:
+          - "google-adk*"
+        update-types:
+          - "minor"
+          - "patch"
+      pydantic:
+        patterns:
+          - "pydantic*"
+        update-types:
+          - "minor"
+          - "patch"
+      database:
+        patterns:
+          - "asyncpg"
+          - "aiosqlite"
+          - "psycopg2*"
+          - "sqlmodel"
+        update-types:
+          - "minor"
+          - "patch"
+      dev-dependencies:
+        patterns:
+          - "pytest*"
+          - "ruff*"
+          - "mypy*"
+        dependency-type: "development"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+  
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    groups:
+      github-actions:
         patterns:
           - "*"
+  
+  # Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "docker"

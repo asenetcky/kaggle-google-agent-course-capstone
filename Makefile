@@ -1,4 +1,4 @@
-.PHONY: install install-dev ruff run
+.PHONY: install install-dev ruff run ui docker-build docker-run docker-stop
 
 install:
 	uv sync --no-dev
@@ -12,3 +12,6 @@ ruff:
 
 run:
 	uv run ./src/toddle_ops/main.py
+
+ui:
+	uv run streamlit run src/toddle_ops/ui.py

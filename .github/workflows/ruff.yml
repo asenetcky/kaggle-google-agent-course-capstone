@@ -1,14 +1,45 @@
-name: Ruff
+name: Code Quality
+
 permissions:
   contents: read
-on: [ push, pull_request ]
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
 jobs:
-  ruff:
+  ruff-lint:
+    name: Ruff Linting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/ruff-action@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          version: "0.14.7"
-          checksum: "8a545d346b3f6f979574df96b4fb2a983f2568fe200f1c1f690bd2cbdce5ea51"
-          args: "format --check --diff"
+          python-version: "3.13"
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        
+      - name: Run Ruff Linter
+        run: uvx ruff check --output-format=github .
+      
+  ruff-format:
+    name: Ruff Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        
+      - name: Check Formatting
+        run: uvx ruff format --check --diff .
