@@ -125,26 +125,7 @@ Then open [http://localhost:8501](http://localhost:8501) in your browser.
 
 See the [Streamlit UI](#-streamlit-web-ui) section for more details.
 
-### Option 3: Docker (Production Ready)
-
-Run the complete application in a container:
-
-```bash
-# Quick start with Docker Compose
-docker-compose up -d
-
-# Access at http://localhost:8501
-
-# View logs
-docker-compose logs -f
-
-# Stop
-docker-compose down
-```
-
-See [DOCKER.md](DOCKER.md) for detailed deployment instructions.
-
-### Option 4: ADK CLI
+### Option 3: ADK CLI
 
 For development and testing:
 
