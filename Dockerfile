@@ -41,9 +41,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Switch to the non-privileged user
 USER appuser
 
-# Expose port for web interface
-EXPOSE 8000
+# Expose port for Streamlit web interface
+EXPOSE 8501
 
-# Run the application
-ENTRYPOINT ["uv", "run"]
-CMD ["./src/toddle_ops/main.py"]
+# Run the Streamlit application by default
+ENTRYPOINT ["uv", "run", "streamlit", "run"]
+CMD ["src/toddle_ops/ui.py", "--server.address=0.0.0.0", "--server.port=8501", "--server.headless=true"]

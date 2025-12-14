@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  toddle-ops:
+    build: .
+    container_name: toddle-ops-ui
+    ports:
+      - "8501:8501"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - SUPABASE_USER=${SUPABASE_USER:-postgres}
+      - SUPABASE_PASSWORD=${SUPABASE_PASSWORD}
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      # Mount source code for development (optional - comment out for production)
+      - ./src:/app/src:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - toddle-ops-network
+
+  # Optional: Local PostgreSQL for development (uncomment if not using Supabase)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: toddle-ops-db
+  #   environment:
+  #     - POSTGRES_USER=${SUPABASE_USER:-postgres}
+  #     - POSTGRES_PASSWORD=${SUPABASE_PASSWORD}
+  #     - POSTGRES_DB=toddle_ops
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - toddle-ops-network
+
+networks:
+  toddle-ops-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:

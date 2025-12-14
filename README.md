@@ -102,16 +102,47 @@ Or run directly with uv:
 uv run ./src/toddle_ops/main.py
 ```
 
-### Option 2: Web Interface
+### Option 2: Streamlit Web UI (Recommended)
 
-Launch the interactive web UI with hot-reloading:
+Beautiful, modern web interface with chat functionality:
+
+```bash
+# Run locally
+make ui
+
+# Or directly with uv
+uv run streamlit run src/toddle_ops/ui.py
+```
+
+Then open [http://localhost:8501](http://localhost:8501) in your browser.
+
+### Option 3: Docker (Production Ready)
+
+Run the complete application in a container:
+
+```bash
+# Quick start with Docker Compose
+docker-compose up -d
+
+# Access at http://localhost:8501
+
+# View logs
+docker-compose logs -f
+
+# Stop
+docker-compose down
+```
+
+See [DOCKER.md](DOCKER.md) for detailed deployment instructions.
+
+### Option 4: ADK CLI
+
+For development and testing:
 
 ```bash
 cd src/toddle_ops/agents
-adk web
+adk run orchestrator
 ```
-
-Then open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
 ```bash
 cd src/toddle_ops/agents
