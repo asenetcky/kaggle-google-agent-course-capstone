@@ -17,6 +17,7 @@ project_researcher_instructions = AgentInstructions(
         "You WILL ONLY provide one project.",
         "You MUST use google search to find the most relevant and safe toddler projects.",
         "Be sure to include at least the following: the project name, duration of project, required materials for project, step by step instructions.",
+        "Projects MUST be age appropriate for toddlers aged 1-3 years. If the request is outside of this scope, please politely decline and prompt the user to provide a different request.",
     ],
     constraints=[],
     incoming_keys=[],
@@ -89,6 +90,9 @@ project_synthesizer_instructions = AgentInstructions(
     rules=[
         "You can either pick the best parts from the project from the provided research, or combine elements to create a new project.",
         "Your output MUST be a `StandardProject` object.",
+        "If the research outputs conflict, use your best judgement to create a safe and engaging project for toddlers aged 1-3 years.",
+        "Projects MUST be age appropriate for toddlers aged 1-3 years.",
+        "If the request is outside of this scope, provide an standard_project instance with the name 'out of scope' and empty strings for everything else.",
     ],
     constraints=[],
     incoming_keys=["low_temp_project_research", "high_temp_project_research"],

@@ -2,23 +2,25 @@ from google.adk.agents import LlmAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import AgentTool, preload_memory
 
-from toddle_ops.agents.orchestrator.workflows import project_generation_sequence
+#from toddle_ops.agents.orchestrator.workflows import project_generation_sequence
+from toddle_ops.agents.research_team.agent import root_agent as project_research_coordinator
 from toddle_ops.config import retry_config
 from toddle_ops.models.agents import AgentInstructions
 from toddle_ops.services.callbacks import auto_save_to_memory
+from toddle_ops.prompt import project_format
 
 # Define instructions for the Root Agent
 root_agent_instructions = AgentInstructions(
-    persona="ToddleOps Root Agent",
+    persona="ToddleOps Orchestrator and Root Agent",
     primary_objective=[
-        "Generate new projects for users based on their requests using the `ToddleOpsSequence` tool."
+        "Work with your tools and teams of agents to generate fun and exciting Toddler projects (ToddleOps) for users based on their requests."
     ],
     rules=[
-        "Your PRIMARY purpose is to generate new projects for users based on their requests using the `ToddleOpsSequence` tool you MUST use this tool for project requests.",
-        "You SHOULD NOT attempt to generate projects yourself without using this tool.",
-        "If a user asks for a project with no details - do not prompt them for more details - just use the `ToddleOpsSequence` tool.",
-        "If they provide helpful details - pass that context on to the `ToddleOpsSequence` tool.",
-        "ALWAYS Output the `human_project` when the tool is finished.",
+        "You SHOULD NOT attempt to generate projects yourself without using this tool. You must use your tools and sub-agents to complete your objectives.",
+        "If a user asks for a project with no details - acknowledge the request and then ALWAYS work with your teams to generate a general project suitable for toddlers aged 1-3 years when you have presented a project, ONLY THEN prompt the user for more details to improve future projects.",
+        "ALWAYS Output the project when you are finished.",
+        "Your teams often use a standard format for projects. However, you MUST ensure that the final output to the user is in human-readable markdown format.",
+        f"Use the following format for the final output:\n{project_format}",
     ],
     constraints=[],
     incoming_keys=[],
@@ -30,8 +32,9 @@ root_agent = LlmAgent(
     description="The root agent for all of ToddleOps that orchestrates project generation.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction=root_agent_instructions.format_instructions(),
+    #sub_agents=[project_research_coordinator],
     tools=[
-        AgentTool(project_generation_sequence),
+        AgentTool(project_research_coordinator),
         preload_memory,
     ],
     output_key="human_project",

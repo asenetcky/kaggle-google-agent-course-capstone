@@ -4,11 +4,7 @@ from google.genai import types
 
 from toddle_ops.config import retry_config
 from toddle_ops.models.agents import AgentInstructions
-from toddle_ops.models.projects import StandardProject
-from toddle_ops.agents.research_team.sub_agent import default_temp_project_researcher
 from toddle_ops.agents.research_team.workflows import research_sequence
-from toddle_ops.prompt import project_format
-from google.adk.tools import AgentTool
 
 
 # Define instructions for the Project Synthesizer Agent
@@ -20,14 +16,10 @@ research_coordinator_instructions = AgentInstructions(
     rules=[
         "You MUST delegate tasks to your tools and sub-agents.",
         "Use the research_sequence to gather diverse project ideas.",
-        "Use the default_temp_project_researcher to explore specific project research when coordinating with the Orchestrator Agent.",
-        project_format,
     ],
 )
 
-# Create the Project Synthesizer Agent using the defined instructions
-
-
+# Create the Project Research Coordinator Agent using the defined instructions
 root_agent = LlmAgent(
     name="ProjectResearchCoordinator",
     description="Coordinates research team to create toddler projects.",
@@ -45,5 +37,4 @@ root_agent = LlmAgent(
         ],
     ),
     sub_agents=[research_sequence],
-    tools=[AgentTool(default_temp_project_researcher)],
 )
