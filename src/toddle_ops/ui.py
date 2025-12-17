@@ -68,14 +68,16 @@ def init_session_state():
         st.session_state.pending_prompt = None
 
 
-def _generate_project_sync(prompt: str, user_id: str, session_id: str | None) -> tuple[str, str]:
+def _generate_project_sync(
+    prompt: str, user_id: str, session_id: str | None
+) -> tuple[str, str]:
     """
     Generate a project synchronously in a separate thread with its own event loop.
-    
+
     This function creates all async resources (session_service, runner, etc.) fresh
     inside the new event loop to avoid cross-loop issues with asyncpg.
     """
-    
+
     async def _run():
         # Import and create all async resources inside the async context
         # This ensures they're bound to this thread's event loop
@@ -90,7 +92,7 @@ def _generate_project_sync(prompt: str, user_id: str, session_id: str | None) ->
         # cross-request serialization issues with DatabaseSessionService
         local_session_service = InMemorySessionService()
         local_memory_service = InMemoryMemoryService()
-        
+
         # Create runner with fresh services
         runner = Runner(
             app=app,
@@ -184,15 +186,21 @@ def main():
         st.markdown("---")
         st.markdown("### 💡 Quick Prompts")
         if st.button("🎨 Creative Project"):
-            st.session_state.pending_prompt = "Create a creative art project for my toddler"
+            st.session_state.pending_prompt = (
+                "Create a creative art project for my toddler"
+            )
             st.rerun()
 
         if st.button("🌈 Sensory Activity"):
-            st.session_state.pending_prompt = "Give me a sensory activity for a 2-year-old"
+            st.session_state.pending_prompt = (
+                "Give me a sensory activity for a 2-year-old"
+            )
             st.rerun()
 
         if st.button("🏃 Active Play"):
-            st.session_state.pending_prompt = "Suggest an active indoor activity for a toddler"
+            st.session_state.pending_prompt = (
+                "Suggest an active indoor activity for a toddler"
+            )
             st.rerun()
 
     # Main content area
@@ -258,10 +266,10 @@ def main():
         st.markdown("### 📊 Session Info")
         st.info(
             f"""
-        **Session ID:** `{st.session_state.session_id or 'Not created'}`  
+        **Session ID:** `{st.session_state.session_id or "Not created"}`  
         **User ID:** `{st.session_state.user_id}`  
         **Messages:** {len(st.session_state.messages)}  
-        **Time:** {datetime.now().strftime('%H:%M:%S')}
+        **Time:** {datetime.now().strftime("%H:%M:%S")}
         """
         )
 

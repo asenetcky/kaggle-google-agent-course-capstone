@@ -1,6 +1,6 @@
 # Prompt helpers
 
-project_format ="""
+project_format = """
         Format should look like the following:
         
         - **Name:** The name of the project
