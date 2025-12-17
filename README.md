@@ -401,10 +401,6 @@ uv run pytest
 ```bash
 # Format and lint
 make ruff
-
-# Or manually:
-uvx ruff check --select I --fix
-uvx ruff format
 ```
 
 ### Development Makefile Commands
@@ -415,10 +411,7 @@ make install-dev  # Install all dependencies including dev tools
 make ruff         # Run code formatting and linting
 make run          # Run the application (CLI)
 make ui           # Run Streamlit web UI
-make docker-build # Build Docker container
-make docker-run   # Run with Docker Compose
-make docker-stop  # Stop Docker containers
-make docker-logs  # View container logs
+make test-research # Run research team agent tests
 ```
 
 ### Key Features in Current Implementation
@@ -429,6 +422,10 @@ make docker-logs  # View container logs
 - **Agent Callbacks**: Automatic memory saving after each agent turn
 - **Error Handling**: Robust error detection and retry logic with reflection
 - **Status Workflow**: Approval workflow with states: `APPROVED`, `PENDING`, `REVISION_NEEDED`, `REJECTED`
+- **Supabase Integration**: PostgreSQL backend for session persistence
+- **Streamlit UI**: Modern web interface with chat functionality and quick prompts
+- **Makefile**: Simplified development workflow with common commands
+
 
 ---
 
