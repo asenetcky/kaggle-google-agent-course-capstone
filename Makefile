@@ -1,4 +1,4 @@
-.PHONY: install install-dev ruff run ui docker-build docker-run docker-stop
+.PHONY: install install-dev ruff run ui test-research
 
 install:
 	uv sync --no-dev
@@ -15,3 +15,6 @@ run:
 
 ui:
 	uv run streamlit run src/toddle_ops/ui.py
+
+test-research:
+	uv run adk eval src/toddle_ops/agents/research_team src/toddle_ops/agents/research_team/research_team.evalset.json --config_file_path=src/toddle_ops/agents/research_team/test_config.json --print_detailed_results

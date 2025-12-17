@@ -2,10 +2,9 @@ from google.adk.agents import LlmAgent
 from google.adk.models.google_llm import Gemini
 from google.genai import types
 
+from toddle_ops.agents.research_team.workflows import get_research_sequence
 from toddle_ops.config import retry_config
 from toddle_ops.models.agents import AgentInstructions
-from toddle_ops.agents.research_team.workflows import research_sequence
-
 
 # Define instructions for the Project Synthesizer Agent
 research_coordinator_instructions = AgentInstructions(
@@ -17,6 +16,8 @@ research_coordinator_instructions = AgentInstructions(
         "You MUST delegate tasks to your tools and sub-agents.",
         "Use the research_sequence to gather diverse project ideas.",
     ],
+    constraints=[],
+    incoming_keys=[],
 )
 
 # Create the Project Research Coordinator Agent using the defined instructions
@@ -26,7 +27,7 @@ root_agent = LlmAgent(
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction=research_coordinator_instructions.format_instructions(),
     output_key="standard_project",
-     generate_content_config=types.GenerateContentConfig(
+    generate_content_config=types.GenerateContentConfig(
         max_output_tokens=1000,
         temperature=1.0,
         safety_settings=[
@@ -36,5 +37,5 @@ root_agent = LlmAgent(
             )
         ],
     ),
-    sub_agents=[research_sequence],
+    sub_agents=[get_research_sequence()],
 )

@@ -2,12 +2,14 @@ from google.adk.agents import LlmAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import AgentTool, preload_memory
 
-#from toddle_ops.agents.orchestrator.workflows import project_generation_sequence
-from toddle_ops.agents.research_team.agent import root_agent as project_research_coordinator
+# from toddle_ops.agents.orchestrator.workflows import project_generation_sequence
+from toddle_ops.agents.research_team.agent import (
+    root_agent as project_research_coordinator,
+)
 from toddle_ops.config import retry_config
 from toddle_ops.models.agents import AgentInstructions
-from toddle_ops.services.callbacks import auto_save_to_memory
 from toddle_ops.prompt import project_format
+from toddle_ops.services.callbacks import auto_save_to_memory
 
 # Define instructions for the Root Agent
 root_agent_instructions = AgentInstructions(
@@ -32,7 +34,7 @@ root_agent = LlmAgent(
     description="The root agent for all of ToddleOps that orchestrates project generation.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
     instruction=root_agent_instructions.format_instructions(),
-    #sub_agents=[project_research_coordinator],
+    # sub_agents=[project_research_coordinator],
     tools=[
         AgentTool(project_research_coordinator),
         preload_memory,
