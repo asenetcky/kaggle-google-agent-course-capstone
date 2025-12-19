@@ -11,8 +11,8 @@ from toddle_ops.models.agents import AgentInstructions
 from toddle_ops.prompt import project_format
 from toddle_ops.services.callbacks import auto_save_to_memory
 
-# Define instructions for the Root Agent
-root_agent_instructions = AgentInstructions(
+# Define instructions for the Orchestrator Agent
+orchestrator_instructions = AgentInstructions(
     persona="ToddleOps Orchestrator and Root Agent",
     primary_objective=[
         "Work with your tools and teams of agents to generate fun and exciting Toddler projects (ToddleOps) for users based on their requests."
@@ -31,9 +31,9 @@ root_agent_instructions = AgentInstructions(
 # Create the Root Agent using the defined instructions
 root_agent = LlmAgent(
     name="ToddleOpsOrchestrator",
-    description="The root agent for all of ToddleOps that orchestrates project generation.",
+    description="The orchestrator agent for all of ToddleOps that orchestrates project generation.",
     model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction=root_agent_instructions.format_instructions(),
+    instruction=orchestrator_instructions.format_instructions(),
     # sub_agents=[project_research_coordinator],
     tools=[
         AgentTool(project_research_coordinator),
