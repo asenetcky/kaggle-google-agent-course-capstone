@@ -1,4 +1,4 @@
-.PHONY: install install-dev ruff run ui adk-web test-research test-orchestrator
+.PHONY: install install-dev ruff run ui adk-web test test-research test-orchestrator
 
 install:
 	uv sync --no-dev
@@ -20,6 +20,9 @@ ui:
 # TODO: consider a version of adk web that connects to supabase with --session_service_uri
 adk-web:
 	uv run adk web src/toddle_ops/agents/ --artifact_service_uri="memory://"
+
+test:
+	uv run pytest tests/ -v
 
 test-research:
 	uv run adk eval src/toddle_ops/agents/research_team src/toddle_ops/agents/research_team/research_team.evalset.json --config_file_path=src/toddle_ops/agents/research_team/test_config.json --print_detailed_results
