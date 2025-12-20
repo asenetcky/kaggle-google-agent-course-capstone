@@ -86,7 +86,3 @@ def get_editorial_agent() -> LlmAgent:
         instruction=editorial_instructions.format_instructions(),
         output_key="standard_project",
     )
-
-
-# Convenience alias for backwards compatibility
-editorial_agent = get_editorial_agent()
