@@ -1,12 +1,11 @@
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
 from google.adk.tools import AgentTool, preload_memory
 
+from toddle_ops.agents.factory import create_agent
 # from toddle_ops.agents.orchestrator.workflows import project_generation_sequence
 from toddle_ops.agents.research_team.agent import (
     root_agent as project_research_coordinator,
 )
-from toddle_ops.config import retry_config
 from toddle_ops.models.agents import AgentInstructions
 from toddle_ops.prompt import project_format
 from toddle_ops.services.callbacks import auto_save_to_memory
@@ -31,16 +30,20 @@ orchestrator_instructions = AgentInstructions(
     incoming_keys=[],
 )
 
-# Create the Root Agent using the defined instructions
-root_agent = LlmAgent(
-    name="ToddleOpsOrchestrator",
-    description="The orchestrator agent for all of ToddleOps that orchestrates project generation.",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction=orchestrator_instructions.format_instructions(),
-    tools=[
-        AgentTool(project_research_coordinator),
-        preload_memory,
-    ],
-    output_key="human_project",
-    after_agent_callback=auto_save_to_memory,  # save after each turn
-)
+def get_orchestrator_agent() -> LlmAgent:
+    """Create the root orchestrator agent for ToddleOps."""
+    return create_agent(
+        name="ToddleOpsOrchestrator",
+        description="The orchestrator agent for all of ToddleOps that orchestrates project generation.",
+        instruction=orchestrator_instructions.format_instructions(),
+        tools=[
+            AgentTool(project_research_coordinator),
+            preload_memory,
+        ],
+        output_key="human_project",
+        after_agent_callback=auto_save_to_memory,  # save after each turn
+    )
+
+
+# Convenience alias for backwards compatibility
+root_agent = get_orchestrator_agent()

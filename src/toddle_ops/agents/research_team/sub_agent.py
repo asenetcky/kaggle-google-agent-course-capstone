@@ -1,9 +1,7 @@
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
 from google.adk.tools import google_search
-from google.genai import types
 
-from toddle_ops.config import retry_config
+from toddle_ops.agents.factory import create_agent
 from toddle_ops.models.agents import AgentInstructions
 from toddle_ops.models.projects import StandardProject
 
@@ -25,45 +23,29 @@ project_researcher_instructions = AgentInstructions(
 
 
 # Create the Project Researcher Agents using the defined instructions
-def get_low_temp_project_researcher():
-    return LlmAgent(
+def get_low_temp_project_researcher() -> LlmAgent:
+    """Create a low-temperature Project Researcher for consistent results."""
+    return create_agent(
         name="LowTempProjectResearcher",
         description="Researches safe crafts and projects for toddlers using common household materials.",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
         instruction=project_researcher_instructions.format_instructions(),
         tools=[google_search],
         output_key="low_temp_project_research",
-        generate_content_config=types.GenerateContentConfig(
-            max_output_tokens=1500,
-            temperature=0.7,
-            safety_settings=[
-                types.SafetySetting(
-                    category=types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                    threshold=types.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
-                )
-            ],
-        ),
+        temperature=0.7,
+        max_output_tokens=1500,
     )
 
 
-def get_high_temp_project_researcher():
-    return LlmAgent(
+def get_high_temp_project_researcher() -> LlmAgent:
+    """Create a high-temperature Project Researcher for creative results."""
+    return create_agent(
         name="HighTempProjectResearcher",
         description="Researches safe crafts and projects for toddlers using common household materials.",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
         instruction=project_researcher_instructions.format_instructions(),
         tools=[google_search],
         output_key="high_temp_project_research",
-        generate_content_config=types.GenerateContentConfig(
-            max_output_tokens=1500,
-            temperature=1.2,
-            safety_settings=[
-                types.SafetySetting(
-                    category=types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                    threshold=types.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
-                )
-            ],
-        ),
+        temperature=1.2,
+        max_output_tokens=1500,
     )
 
 
@@ -86,11 +68,11 @@ project_synthesizer_instructions = AgentInstructions(
 
 
 # Create the Project Synthesizer Agent using the defined instructions
-def get_project_synthesizer():
-    return LlmAgent(
+def get_project_synthesizer() -> LlmAgent:
+    """Create a Project Synthesizer that combines research into a single project."""
+    return create_agent(
         name="ProjectSynthesizer",
         description="Synthesizes a single toddler project from research output.",
-        model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
         instruction=project_synthesizer_instructions.format_instructions(),
         output_schema=StandardProject,
         output_key="standard_project",

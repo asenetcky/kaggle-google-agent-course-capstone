@@ -1,9 +1,8 @@
 from google.adk.agents import LlmAgent
-from google.adk.models.google_llm import Gemini
 from google.genai import types
 
+from toddle_ops.agents.factory import DEFAULT_SAFETY_SETTINGS, create_agent
 from toddle_ops.agents.research_team.workflows import get_research_sequence
-from toddle_ops.config import retry_config
 from toddle_ops.models.agents import AgentInstructions
 
 # Define instructions for the Project Synthesizer Agent
@@ -20,22 +19,21 @@ research_coordinator_instructions = AgentInstructions(
     incoming_keys=[],
 )
 
-# Create the Project Research Coordinator Agent using the defined instructions
-root_agent = LlmAgent(
-    name="ProjectResearchCoordinator",
-    description="Coordinates research team to create toddler projects.",
-    model=Gemini(model="gemini-2.5-flash-lite", retry_options=retry_config),
-    instruction=research_coordinator_instructions.format_instructions(),
-    output_key="standard_project",
-    generate_content_config=types.GenerateContentConfig(
-        max_output_tokens=1000,
-        temperature=1.0,
-        safety_settings=[
-            types.SafetySetting(
-                category=types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-                threshold=types.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
-            )
-        ],
-    ),
-    sub_agents=[get_research_sequence()],
-)
+def get_research_coordinator_agent() -> LlmAgent:
+    """Create the Project Research Coordinator agent."""
+    return create_agent(
+        name="ProjectResearchCoordinator",
+        description="Coordinates research team to create toddler projects.",
+        instruction=research_coordinator_instructions.format_instructions(),
+        output_key="standard_project",
+        sub_agents=[get_research_sequence()],
+        generate_content_config=types.GenerateContentConfig(
+            max_output_tokens=1000,
+            temperature=1.0,
+            safety_settings=DEFAULT_SAFETY_SETTINGS,
+        ),
+    )
+
+
+# Convenience alias for backwards compatibility
+root_agent = get_research_coordinator_agent()
